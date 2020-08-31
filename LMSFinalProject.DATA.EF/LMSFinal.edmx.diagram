@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a0a40f574b84e31a14cb03c61c4fb78" Name="Diagram1">
+        <EntityTypeShape EntityType="LMSFinalModel.Course" Width="1.5" PointX="4.875" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSFinalModel.CourseCompletion" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSFinalModel.Lesson" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSFinalModel.LessonView" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSFinalModel.sysdiagram" Width="1.5" PointX="5.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSFinalModel.UserDetail" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="LMSFinalModel.FK_CourseCompletions_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSFinalModel.FK_Lessons_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSFinalModel.FK_CourseCompletions_UserDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSFinalModel.FK_LessonViews_Lessons" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSFinalModel.FK_LessonViews_UserDetails" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
