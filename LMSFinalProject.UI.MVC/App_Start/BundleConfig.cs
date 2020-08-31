@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace IdentitySample
+namespace LMSFinalProject.UI.MVC
 {
     public class BundleConfig
     {

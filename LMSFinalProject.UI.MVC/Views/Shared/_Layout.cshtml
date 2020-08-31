@@ -66,12 +66,19 @@
                                             <a class="dropdown-item" href="elements.html">Elements</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("About","Home")">About Us</a></li>
 
+                                    @*<li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>*@
+
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact","Home")">Contact</a></li>
+
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <li>@Html.ActionLink("Add Roles", "Index", "RolesAdmin") &nbsp;&nbsp;</li>
+                                        <li>@Html.ActionLink("Add Users", "Index", "UsersAdmin")</li>
+                                    }
                                 </ul>
                                 <!-- Search Form Area Start -->
                                 <div class="search-form-area animated">
@@ -85,10 +92,12 @@
                                     <a href="#" id="search-btn"><img src="~/Content/img/core-img/search-icon.png" alt="Search"></a>
                                 </div>
                                 <!-- Login/Register btn -->
-                                <div class="login-register-btn">
-                                    <a href="@Url.Action("Login","Account")">Login</a>
-                                    <a href="@Url.Action("Register","Account")">/ Register</a>
-                                </div>
+                                @Html.Partial("_LoginPartial")
+                                @*<div class="login-register-btn">
+                                        <a href="@Url.Action("Login","Account")">Login</a>
+                                        <a href="@Url.Action("Register","Account")">/ Register</a>
+
+                                    </div>*@
                             </div>
                         </nav>
                     </div>
