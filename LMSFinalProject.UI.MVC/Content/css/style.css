@@ -12,11 +12,11 @@
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900');
 
-@import 'css/bootstrap.min.css';
-@import 'css/owl.carousel.min.css';
-@import 'css/animate.css';
-@import 'css/magnific-popup.css';
-@import 'css/font-awesome.min.css';
+@import 'bootstrap.min.css';
+@import 'owl.carousel.min.css';
+@import 'animate.css';
+@import 'magnific-popup.css';
+@import 'font-awesome.min.css';
 
 /* --------------------------
 :: 1.0 Base CSS Start
