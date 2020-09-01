@@ -1,15 +1,20 @@
 ﻿@model IEnumerable<LMSFinalProject.DATA.EF.UserDetail>
 
 @{
-    ViewBag.Title = "User Details";
+    ViewBag.Title = "Users";
 }
 
 <h2 style="padding-top:3em">@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+
+<div id="UserDetailsCreate">
+    @Html.Partial("UserDetailsCreate", new LMSFinalProject.DATA.EF.UserDetail())
+</div>
+<button id="toggleUserDetailsCreate" class="btn btn-primary">
+    Create User
+</button>
+
+<table class="table" id="UserDetailsTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
@@ -20,20 +25,152 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |*@
+                <a href="" class="EditLink" id="@item.UserId">Edit</a>
+
+                @*@Html.ActionLink("Details", "Details", new { id = item.UserId }) |*@
+                <a href="" class="DetailsLink" id="@item.UserId">Details</a>
+
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div id="UserDetailsDetails">
+
+</div>
+<div id="UserDetailsEdit">
+
+</div>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+
+
+       //AJAX DELETE CONFIRMATION
+       function deleteConfirmed(response) {
+           //Remove the row from the table
+           var rowId = '#UserDetails-' + response.id;
+           $('#UserDetailsTable').find(rowId).remove();
+
+           //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
+           $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
+       }
+
+       //#region AJAX Details Dialog Box
+       $('a.DetailsLink').click(function (e) {
+           e.preventDefault();
+           $('#UserDetailsDetails').data('pId', $(this).attr('id')).dialog({
+               //dialog properties can be found at the jqueryui.com dialog - modal
+               modal: true,
+               open: function () {
+                   //Grab the ID of the row data and assign it to a new variable
+                   var data = $(this).data('pId');
+                   //Load the new LessonDetails partialView using the id
+                   $(this).load("/UserDetails/UserDetailsDetails/" + data);
+               },
+               width: 400,
+               height: 200,
+               title: "User Details",
+               resizeable: false
+           });
+       });
+       //#endregion
+
+       //AJAX Show Create form - this toggles the end user capability to see the form
+       //When the create publisher button is clicked toggle the creat form visibility
+       //back on (it should start hidden)
+       $('#UserDetailsCreate').hide();
+       $('#toggleUserDetailsCreate').click(function () {
+           $("#UserDetailsCreate").toggle();
+           //Toggle text and color of Button
+           if ($('#UserDetailsCreate').is(':visible')) {
+               $('#toggleUserDetailsCreate').html('Cancel');
+               $('#toggleUserDetailsCreate').attr('class', 'btn btn-danger');
+           } else {
+               $('#toggleUserDetailsCreate').html('Create User');
+               $('#toggleUserDetailsCreate').attr('class', 'btn btn-primary');
+           }
+       });
+
+
+       //Submit the form
+       $("#UserDetailsCreateForm").submit(function (e) {
+           var formData = $(this).serializeArray();
+           //Interrupt the normal submit event
+           e.preventDefault();
+           //Message the user while processing
+           $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
+           //call to Ajax
+           $.ajax({
+               //Call the POST PublisherCreate Action
+               url: "@Url.Action("UserDetailsCreate", "UserDetails")",
+               type: "POST",
+               //serialized form data
+               data: formData,
+               //sending as Json
+               dataType: "json",
+               //If it works, show the succes message in the div located above the renderBody in the layout
+               success: function(data){
+                   $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
+                   //Clear the form
+                   $('#UserDetailsCreateForm')[0].reset();
+                   //Add the (temporary) row to the table. Remember the browser
+                   //is being manually updated so you will see a message to refresh the view to see the links.
+                   //You could code these in, we're leaving out so you can see asynchronous activity.
+                   //When the view is refreshed, the new record will reload into the table with links in the last column
+                   $(function (){
+                       var row = '<tr><td>' + data.FirstName +
+                           '</td><td>' + data.LastName +
+                           '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                       //Add the row to the table
+                       $('#UserDetailsTable').append(row);
+
+                       //close the form and show the create button
+                       $('UserDetailsCreate').toggle();
+                       $('#toggleUserDetailsCreate').html('Create User');
+                       $('#toggleUserDetailsCreate').attr('class', 'btn btn-primary')
+                   });
+               },
+               //If there is an error, then show the alert message in the div located above the renderBody
+               error: function(e){
+                   $('#MessageContent').html("<div class='alert alert-warning'> There was an error. Please try again or contact the site admin. </div>");
+               }
+           });
+       });
+
+       //Show Edit Dialog Modal
+       $('a.EditLink').click(function (e) {
+           e.preventDefault();
+           $("#UserDetailsEdit").data('pId', $(this).attr('id')).dialog({
+               modal: true,
+               open: function () {
+                   var data = $(this).data('pId');
+                   $(this).load("/UserDetails/UserDetailsEdit/" + data);
+               },
+               width: 600,
+               height: 450,
+               title: "Edit User",
+               resizeable: false
+            });
+       });
+
+    </script>
+
+
+}

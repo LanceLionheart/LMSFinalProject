@@ -450,6 +450,9 @@
     <Content Include="Views\Courses\CourseDetails.cshtml" />
     <Content Include="Views\Courses\CourseCreate.cshtml" />
     <Content Include="Views\Courses\CourseEdit.cshtml" />
+    <Content Include="Views\UserDetails\UserDetailsDetails.cshtml" />
+    <Content Include="Views\UserDetails\UserDetailsCreate.cshtml" />
+    <Content Include="Views\UserDetails\UserDetailsEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

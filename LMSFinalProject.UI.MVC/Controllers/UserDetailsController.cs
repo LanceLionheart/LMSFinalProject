@@ -14,6 +14,67 @@ namespace LMSFinalProject.UI.MVC.Controllers
     {
         private LMSFinalEntities1 db = new LMSFinalEntities1();
 
+        #region AJAX Delete
+        [HttpPost]
+        public JsonResult AjaxDelete(int id)
+        {
+            UserDetail usede= db.UserDetails.Find(id);
+
+            db.UserDetails.Remove(usede);
+
+            db.SaveChanges();
+
+            var message = $"Deleted Course {usede.FirstName} from the database!";
+            return Json(
+                new
+                {
+                    id = id,
+                    message = message
+                });
+
+        }
+        #endregion
+
+        #region AJAX Details
+        [HttpGet]
+        public PartialViewResult UserDetailsDetails(int id)
+        {
+            UserDetail usede = db.UserDetails.Find(id);
+
+            return PartialView(usede);
+
+        }
+        #endregion
+
+        #region AJAX Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult UserDetailsCreate(UserDetail userdetail)
+        {
+            db.UserDetails.Add(userdetail);
+            db.SaveChanges();
+            return Json(userdetail);
+        }
+        #endregion
+
+        #region AJAX Edit
+        public PartialViewResult UserDetailsEdit(int id)
+        {
+            UserDetail usede = db.UserDetails.Find(id);
+            return PartialView(usede);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult AjaxEdit(UserDetail userdetail)
+        {
+            db.Entry(userdetail).State = EntityState.Modified;
+            db.SaveChanges();
+            return Json(userdetail);
+        }
+
+        #endregion
+
         // GET: UserDetails
         public ActionResult Index()
         {
