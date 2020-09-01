@@ -51,7 +51,22 @@
                 <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
 
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.CourseId })*@
+                @if (item.IsActive == false)
+                {
+                    //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)
+                    @Ajax.ActionLink("Delete", "AjaxDelete", "Courses", new { id = item.CourseId },
+                                 new AjaxOptions
+                                 {
+                                     HttpMethod = "POST",
+                                     Confirm = "Are you sure you want to remove " + item.CourseName + " from Courses?",
+                                     OnSuccess = "deleteConfirmed"
+                                 });
+                }
+                else
+                {
+                    <span class="myWarning">In Use</span>
+                }
             </td>
         </tr>
     }
@@ -70,16 +85,16 @@
 
     <script type="text/javascript">
 
-
        //AJAX DELETE CONFIRMATION
-       function deleteConfirmed(response) {
-           //Remove the row from the table
-           var rowId = '#Course-' + response.id;
-           $('#CoursesTable').find(rowId).remove();
+        function deleteConfirmed(response) {
+            //Remove the row from the table*****************************************
+            var rowId = '#Course-' + response.id;
+            $('#CoursesTable').find(rowId).remove();
 
-           //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
-           $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
-       }
+            //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
+            $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
+
+        }
 
        //#region AJAX Details Dialog Box
        $('a.DetailsLink').click(function (e) {

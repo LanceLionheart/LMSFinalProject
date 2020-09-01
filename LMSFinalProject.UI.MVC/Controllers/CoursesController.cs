@@ -24,7 +24,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
             db.SaveChanges();
 
-            var message = $"Deleted Course {cour.CourseName} from the database!";
+            var message = $"Deleted Course {cour.CourseName} from the database! Refresh to remove";
             return Json(
                 new
                 {

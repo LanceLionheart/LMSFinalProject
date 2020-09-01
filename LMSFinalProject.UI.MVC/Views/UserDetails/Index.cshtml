@@ -42,7 +42,22 @@
                 <a href="" class="DetailsLink" id="@item.UserId">Details</a>
 
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.UserId })*@
+                @if (item.CourseCompletions.Count == 0)
+                {
+                    //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)
+                    @Ajax.ActionLink("Delete", "AjaxDelete", "UserDetails", new { id = item.UserId },
+                                 new AjaxOptions
+                                 {
+                                     HttpMethod = "POST",
+                                     Confirm = "Are you sure you want to remove " + item.FirstName + " from Users?",
+                                     OnSuccess = "deleteConfirmed"
+                                 });
+                }
+                else
+                {
+                    <span class="myWarning">In Use</span>
+                }
             </td>
         </tr>
     }

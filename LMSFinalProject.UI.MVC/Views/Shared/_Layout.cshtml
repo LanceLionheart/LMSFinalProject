@@ -115,8 +115,10 @@
     </header>
 
     <!--RenderSection for Style associated with the CSS view-->
-    @RenderSection("style", false)
-
+    @*@RenderSection("style", false)*@
+    <div id="MessageDisplay" class="row">
+        <div class="col-md-10 col-md-offset-1" id="MessageContent"></div>
+    </div>
 
     @RenderBody()
 
@@ -252,7 +254,7 @@
     <script src="~/Content/js/plugins.js"></script>
     <!-- Active js -->
     <script src="~/Content/js/active.js"></script>
-    
+
     <!--DatePicker js-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
