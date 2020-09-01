@@ -1,0 +1,117 @@
+﻿@model LMSFinalProject.DATA.EF.Lesson
+
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "LessonEditForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Lesson</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LessonId)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LessonTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LessonTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LessonTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Introduction, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Introduction, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Introduction, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VideoURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VideoURL, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="saveUpdate" value="Update Lesson" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+    //Submit the form
+    $("#LessonEditForm").submit(function (e) {
+        var formData = $(this).serializeArray();
+        e.preventDefault();
+        $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
+        $.ajax({
+            url: "@Url.Action("AjaxEdit", "Lessons")",
+            type: "POST",
+        data: formData,
+        dataType: "json",
+        success: function(data){
+            $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully updated!</div>");
+            $('#LessonEditForm')[0].reset();
+            //Add the (temporary) row to the table. Remember the browser
+            //is being manually updated so you will see a message to refresh the view to see the links.
+            //You could code these in, we're leaving out so you can see asynchronous activity.
+            //When the view is refreshed, the new record will reload into the table with links in the last column
+            $(function (){
+                var row = '<tr><td>' + data.LessonTitle +
+                    '</td><td>' + data.Introduction +
+                    '</td><td>' + data.VideoUrl +
+                    '</td><td>' + data.PdfFileName +
+                    '</td><td>' + data.IsActive +
+                    '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                //Replace the row to the table
+                $('#Lessons-' + data.LessonID).replaceWith(row);
+            });
+            $("#LessonEdit").dialog('close');//Close popup after submit
+        },
+        //If there is an error, then show the alert message in the div located above the renderBody
+        error: function(e){
+            $('#MessageContent').html("<div class='alert alert-warning'> There was an error. Please try again or contact the site admin. </div>");
+        }
+    });
+    });
+</script>
+

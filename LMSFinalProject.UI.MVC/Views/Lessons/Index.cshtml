@@ -1,19 +1,27 @@
 ﻿@model IEnumerable<LMSFinalProject.DATA.EF.Lesson>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lessons";
 }
 
-<h2 style="padding-top: 3em">Index</h2>
+<h2 style="padding-top: 3em">@ViewBag.Title</h2>
 
 <!--AJAX Create Form-->
-<div>
-
+<div id="LessonCreate">
+    @Html.Partial("LessonCreate", new LMSFinalProject.DATA.EF.Lesson())
 </div>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+
+<button id="toggleLessonCreate" class="btn btn-primary">
+    Create Lesson
+</button>
+
+
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+
+<table class="table" id="LessonsTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LessonTitle)
@@ -36,32 +44,184 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LessonTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Introduction)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VideoURL)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PdfFilename)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.CourseName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LessonId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LessonId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LessonTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Introduction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VideoURL)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PdfFilename)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.CourseName)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |*@
+                <a href="" class="EditLink" id="@item.LessonId">Edit</a>
+                @*@Html.ActionLink("Details", "Details", new { id=item.LessonId }) |*@
+                <a href="" class="DetailsLink" id="@item.LessonId">Details</a>
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+
+@*<script>
+        $(document).ready(function () {
+            $('.table').DataTable();
+        });
+    </script>*@
+
+<div id="LessonDetails"></div>
+<div id="LessonEdit"></div>
+
+@section scripts{
+
+
+<script type="text/javascript">
+
+
+            //$(function () {
+            //    $("#dialog1").dialog({
+            //        autoOpen: false
+            //    });
+
+            //    $("#opener").click(function () {
+            //        $("#dialog1").dialog('open');
+            //    });
+            //});
+
+
+       //#region AJAX DELETE CONFIRMATION
+       //response coming from return in PublihsersController (34ish)
+       function deleteConfirmed(response) {
+           //Remove the row from the table
+           var rowId = '#Lesson-' + response.id;
+           $('#LessonsTable').find(rowId).remove();
+
+           //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
+           $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
+
+       }
+       //#endregion
+
+       //#region AJAX Details Dialog Box
+       $('a.DetailsLink').click(function (e) {
+           e.preventDefault();//This prevents the browswer window from reloading
+           //modal is a popup, greyout background
+           //(Declaration, Assignment).dialog
+           $('#LessonDetails').data('pId', $(this).attr('id')).dialog({
+               //dialog properties can be found at the jqueryui.com dialog - modal
+               modal: true,
+               open: function () {
+                   //Grab the ID of the row data and assign it to a new variable
+                   var data = $(this).data('pId');
+                   //Load the new LessonDetails partialView using the id
+                   $(this).load("/Lessons/LessonDetails/" + data);
+               },
+               width: 400,
+               height: 200,
+               title: "Lesson Details",
+               resizeable: false
+           });
+       });
+       //#endregion
+
+       //AJAX Show Create form - this toggles the end user capability to see the form
+       //When the create publisher button is clicked toggle the creat form visibility
+       //back on (it should start hidden)
+        $('#LessonCreate').hide();
+       $('#toggleLessonCreate').click(function () {
+           $("#LessonCreate").toggle();
+           //Toggle text and color of Button
+           if ($('#LessonCreate').is(':visible')) {
+               $('#toggleLessonCreate').html('Cancel');
+               $('#toggleLessonCreate').attr('class', 'btn btn-danger');
+           } else {
+               $('#toggleLessonCreate').html('Create Lesson');
+               $('#toggleLessonCreate').attr('class', 'btn btn-primary');
+           }
+       });
+
+
+       //Submit the form
+       $("#LessonCreateForm").submit(function (e) {
+           var formData = $(this).serializeArray();
+           //Interrupt the normal submit event
+           e.preventDefault();
+           //Message the user while processing
+           $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
+           //call to Ajax
+           $.ajax({
+               //Call the POST PublisherCreate Action
+               url: "@Url.Action("LessonCreate", "Lessons")",
+               type: "POST",
+               //serialized form data
+               data: formData,
+               //sending as Json
+               dataType: "json",
+               //If it works, show the succes message in the div located above the renderBody in the layout
+               success: function(data){
+                   $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
+                   //Clear the form
+                   $('#LessonCreateForm')[0].reset();
+                   //Add the (temporary) row to the table. Remember the browser
+                   //is being manually updated so you will see a message to refresh the view to see the links.
+                   //You could code these in, we're leaving out so you can see asynchronous activity.
+                   //When the view is refreshed, the new record will reload into the table with links in the last column
+                   $(function (){
+                       var row = '<tr><td>' + data.LessonTitle +
+                           '</td><td>' + data.Introduction +
+                           '</td><td>' + data.VideoURL +
+                           '</td><td>' + data.PdfFilename +
+                           '</td><td>' + data.IsActive +
+                           '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                       //Add the row to the table
+                       $('#LessonsTable').append(row);
+
+                       //close the form and show the create button
+                       $('LessonCreate').toggle();
+                       $('#toggleLessonCreate').html('Create Lesson');
+                       $('#toggleLessonCreate').attr('class', 'btn btn-primary')
+                   });
+               },
+               //If there is an error, then show the alert message in the div located above the renderBody
+               error: function(e){
+                   $('#MessageContent').html("<div class='alert alert-warning'> There was an error. Please try again or contact the site admin. </div>");
+               }
+           });
+       });
+
+       //Show Edit Dialog Modal
+       $('a.EditLink').click(function (e) {
+           e.preventDefault();
+           $("#LessonEdit").data('pId', $(this).attr('id')).dialog({
+               modal: true,
+               open: function () {
+                   var data = $(this).data('pId');
+                   $(this).load("/Lessons/LessonEdit/" + data);
+               },
+               width: 600,
+               height: 450,
+               title: "Edit Lesson",
+               resizeable: false
+            });
+       });
+
+</script>
+
+
+    }

@@ -444,6 +444,12 @@
     <Content Include="Views\CourseCompletions\Details.cshtml" />
     <Content Include="Views\CourseCompletions\Edit.cshtml" />
     <Content Include="Views\CourseCompletions\Index.cshtml" />
+    <Content Include="Views\Lessons\LessonCreate.cshtml" />
+    <Content Include="Views\Lessons\LessonDetails.cshtml" />
+    <Content Include="Views\Lessons\LessonEdit.cshtml" />
+    <Content Include="Views\Courses\CourseDetails.cshtml" />
+    <Content Include="Views\Courses\CourseCreate.cshtml" />
+    <Content Include="Views\Courses\CourseEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

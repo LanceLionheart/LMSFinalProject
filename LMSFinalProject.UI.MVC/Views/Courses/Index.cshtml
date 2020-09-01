@@ -1,15 +1,22 @@
 ﻿@model IEnumerable<LMSFinalProject.DATA.EF.Course>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Courses";
 }
 
-<h2 style="padding-top: 3em">Index</h2>
+<h2 style="padding-top: 3em">@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+
+<div id="CourseCreate">
+    @Html.Partial("CourseCreate", new LMSFinalProject.DATA.EF.Course())
+</div>
+<button id="toggleCourseCreate" class="btn btn-primary">
+    Create Course
+</button>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<table class="table" id="CoursesTable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
@@ -23,23 +30,157 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsActive)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |*@
+                <a href="" class="EditLink" id="@item.CourseId">Edit</a>
+
+
+                @*@Html.ActionLink("Details", "Details", new { id = item.CourseId }) |*@
+                <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
+
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div id="LessonDetails">
+
+</div>
+<div id="LessonEdit">
+
+</div>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+
+
+       //AJAX DELETE CONFIRMATION
+       function deleteConfirmed(response) {
+           //Remove the row from the table
+           var rowId = '#Course-' + response.id;
+           $('#CoursesTable').find(rowId).remove();
+
+           //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
+           $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
+       }
+
+       //#region AJAX Details Dialog Box
+       $('a.DetailsLink').click(function (e) {
+           e.preventDefault();
+           $('#CourseDetails').data('pId', $(this).attr('id')).dialog({
+               //dialog properties can be found at the jqueryui.com dialog - modal
+               modal: true,
+               open: function () {
+                   //Grab the ID of the row data and assign it to a new variable
+                   var data = $(this).data('pId');
+                   //Load the new LessonDetails partialView using the id
+                   $(this).load("/Courses/CourseDetails/" + data);
+               },
+               width: 400,
+               height: 200,
+               title: "Course Details",
+               resizeable: false
+           });
+       });
+       //#endregion
+
+       //AJAX Show Create form - this toggles the end user capability to see the form
+       //When the create publisher button is clicked toggle the creat form visibility
+       //back on (it should start hidden)
+       $('#CourseCreate').hide();
+       $('#toggleCourseCreate').click(function () {
+           $("#CourseCreate").toggle();
+           //Toggle text and color of Button
+           if ($('#CourseCreate').is(':visible')) {
+               $('#toggleCourseCreate').html('Cancel');
+               $('#toggleCourseCreate').attr('class', 'btn btn-danger');
+           } else {
+               $('#toggleCourseCreate').html('Create Course');
+               $('#toggleCourseCreate').attr('class', 'btn btn-primary');
+           }
+       });
+
+
+       //Submit the form
+       $("#CourseCreateForm").submit(function (e) {
+           var formData = $(this).serializeArray();
+           //Interrupt the normal submit event
+           e.preventDefault();
+           //Message the user while processing
+           $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
+           //call to Ajax
+           $.ajax({
+               //Call the POST PublisherCreate Action
+               url: "@Url.Action("CourseCreate", "Courses")",
+               type: "POST",
+               //serialized form data
+               data: formData,
+               //sending as Json
+               dataType: "json",
+               //If it works, show the succes message in the div located above the renderBody in the layout
+               success: function(data){
+                   $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
+                   //Clear the form
+                   $('#CourseCreateForm')[0].reset();
+                   //Add the (temporary) row to the table. Remember the browser
+                   //is being manually updated so you will see a message to refresh the view to see the links.
+                   //You could code these in, we're leaving out so you can see asynchronous activity.
+                   //When the view is refreshed, the new record will reload into the table with links in the last column
+                   $(function (){
+                       var row = '<tr><td>' + data.CourseName +
+                           '</td><td>' + data.CourseDescription +
+                           '</td><td>' + data.IsActive +
+                           '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                       //Add the row to the table
+                       $('#CoursesTable').append(row);
+
+                       //close the form and show the create button
+                       $('CourseCreate').toggle();
+                       $('#toggleCourseCreate').html('Create Course');
+                       $('#toggleCourseCreate').attr('class', 'btn btn-primary')
+                   });
+               },
+               //If there is an error, then show the alert message in the div located above the renderBody
+               error: function(e){
+                   $('#MessageContent').html("<div class='alert alert-warning'> There was an error. Please try again or contact the site admin. </div>");
+               }
+           });
+       });
+
+       //Show Edit Dialog Modal
+       $('a.EditLink').click(function (e) {
+           e.preventDefault();
+           $("#CourseEdit").data('pId', $(this).attr('id')).dialog({
+               modal: true,
+               open: function () {
+                   var data = $(this).data('pId');
+                   $(this).load("/Courses/CourseEdit/" + data);
+               },
+               width: 600,
+               height: 450,
+               title: "Edit Course",
+               resizeable: false
+            });
+       });
+
+    </script>
+
+
+}

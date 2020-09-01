@@ -17,6 +17,17 @@
     <!-- Responsive CSS -->
     <link href="~/Content/css/responsive.css" rel="stylesheet">
 
+    <!--jQuery Calendar Theme-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/cupertino/jquery-ui.css" />
+
+    <!--AJAX-->
+    @*<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css">*@
+
+    <!--Datatables.net css-->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" />
+
+
+
 </head>
 
 <body>
@@ -217,7 +228,21 @@
         </div>
     </footer>
     <!-- ***** Footer Area End ***** -->
-    <!-- jQuery-2.2.4 js -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/template")*@
+
+    <!--ADDEDjQuery UI CDN-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!--ADDED jQuery Ajax CDN-->
+    <script src="https://cdn.jsdelivr.net/jquery.ajax.unobtrusive/3.2.4/jquery.unobtrusive-ajax.min.js"></script>
+
+    <!--JavaScript for Datatables.net-->
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+    <!-- jQuery-2.2.4 js *******************************************************-->
     <script src="~/Content/js/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
     <script src="~/Content/js/popper.min.js"></script>
@@ -227,6 +252,9 @@
     <script src="~/Content/js/plugins.js"></script>
     <!-- Active js -->
     <script src="~/Content/js/active.js"></script>
+    
+    <!--DatePicker js-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     @RenderSection("scripts", required: false)
 </body>
