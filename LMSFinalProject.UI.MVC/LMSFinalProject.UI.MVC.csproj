@@ -453,6 +453,7 @@
     <Content Include="Views\UserDetails\UserDetailsDetails.cshtml" />
     <Content Include="Views\UserDetails\UserDetailsCreate.cshtml" />
     <Content Include="Views\UserDetails\UserDetailsEdit.cshtml" />
+    <Content Include="Views\Lessons\LessonIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

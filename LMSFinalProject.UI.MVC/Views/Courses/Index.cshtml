@@ -4,22 +4,23 @@
     ViewBag.Title = "Courses";
 }
 
-<h2 style="padding-top: 3em">@ViewBag.Title</h2>
+<h2 style="padding-top: 3em; padding-left: 2em">@ViewBag.Title</h2>
 
 
-<div id="CourseCreate">
+<div id="CourseCreate" style="padding-left:2em">
     @Html.Partial("CourseCreate", new LMSFinalProject.DATA.EF.Course())
 </div>
-<button id="toggleCourseCreate" class="btn btn-primary">
+<button id="toggleCourseCreate" class="btn btn-primary" style="padding-left:2em">
     Create Course
 </button>
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<table class="table" id="CoursesTable">
+<table class="table" id="CoursesTable" style="padding-left:2em">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
+            
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CourseDescription)
@@ -34,7 +35,12 @@
     {
         <tr>
             <td>
+                @*<a href="@Url.Action("Index","Lessons")">*@
+                @Html.DisplayFor(modelItem => item.CourseId)
                 @Html.DisplayFor(modelItem => item.CourseName)
+                @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
+                <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CourseDescription)
@@ -42,6 +48,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
             </td>
+
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |*@
                 <a href="" class="EditLink" id="@item.CourseId">Edit</a>
@@ -194,6 +201,54 @@
                resizeable: false
             });
        });
+
+        //EXPERIMENT DETAILS
+       $('a.ViewLesson').click(function (e) {
+           e.preventDefault();
+           $('#CourseDetails').data('pId', $(this).attr('id')).dialog({
+               //dialog properties can be found at the jqueryui.com dialog - modal
+               modal: true,
+               open: function () {
+                   //Grab the ID of the row data and assign it to a new variable
+                   var data = $(this).data('pId');
+                   //Load the new LessonDetails partialView using the id
+                   $(this).load("/Lessons/LessonDetails/" + data);
+               },
+               width: 400,
+               height: 200,
+               title: "Lesson Details",
+               resizeable: false
+           });
+       });
+
+
+        //EXPERIMENTS INDEX
+
+       $('a.ViewLessonIndex').click(function (e) {
+           e.preventDefault();
+           $('#CourseDetails').data('pId', $(this).attr('id')).dialog({
+               //dialog properties can be found at the jqueryui.com dialog - modal
+               modal: true,
+               open: function () {
+                   //Grab the ID of the row data and assign it to a new variable
+                   var data = $(this).data('pId');
+                   //Load the new LessonDetails partialView using the id
+                   $(this).load("/Lessons/LessonIndex/" + data);
+               },
+               width: 1400,
+               height: 500,
+               title: "Course Lessons",
+               resizeable: false
+           });
+       });
+
+
+
+
+
+
+
+
 
     </script>
 

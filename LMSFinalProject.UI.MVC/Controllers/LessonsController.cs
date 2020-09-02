@@ -40,6 +40,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
         public PartialViewResult LessonDetails(int id)
         {
             Lesson less = db.Lessons.Find(id);
+            //Courses course = db.Courses.Find(id)
+            //Grab all lessons from that course and add it to a list. Send that list into the view. 
 
             return PartialView(less);
 
@@ -72,10 +74,28 @@ namespace LMSFinalProject.UI.MVC.Controllers
             db.SaveChanges();
             return Json(lesson);
         }
-        
+
         #endregion
 
+        #region AJAX Index
+        [HttpGet]
+        public PartialViewResult LessonIndex(int id)
+        {
+            //Lesson less = db.Lessons.Find(id);
+            Course course = db.Courses.Find(id);
 
+            //Courses course = db.Courses.Find(id)
+            //Grab all lessons from that course and add it to a list. Send that list into the view.
+
+            //Works
+            //var lessons = db.Lessons.Include(l => l.Course);
+
+            var lessons = db.Lessons.Where(l => l.Course.CourseId == course.CourseId);
+
+            return PartialView(lessons.ToList());
+
+        }
+        #endregion
 
 
         // GET: Lessons
