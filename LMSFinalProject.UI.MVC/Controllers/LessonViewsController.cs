@@ -14,6 +14,45 @@ namespace LMSFinalProject.UI.MVC.Controllers
     {
         private LMSFinalEntities1 db = new LMSFinalEntities1();
 
+
+        //*********************************
+        #region AJAX Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult LessonViewsCreate(LessonView lessonview)
+        {
+            db.LessonViews.Add(lessonview);
+            db.SaveChanges();
+            return Json(lessonview);
+        }
+        #endregion
+
+        //********************************************************
+        //#region AJAX Index
+        //[HttpGet]
+        //public PartialViewResult LessonViewsIndex(int id)
+        //{
+        //    //Lesson less = db.Lessons.Find(id);
+        //    Course course = db.Courses.Find(id);
+
+        //    //Courses course = db.Courses.Find(id)
+        //    //Grab all lessons from that course and add it to a list. Send that list into the view.
+
+        //    //Works
+        //    //var lessons = db.Lessons.Include(l => l.Course);
+
+        //    var lessons = db.LessonViews.Where(l => l.Lesson.CourseId == course.CourseId);
+
+        //    return PartialView(lessons.ToList());
+
+        //}
+        //#endregion
+
+        //*****************************************************************8
+
+
+
+
         // GET: LessonViews
         public ActionResult Index()
         {

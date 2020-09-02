@@ -64,7 +64,12 @@ namespace LMSFinalProject.UI.MVC.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        //Added from Module 2 Customer User Resource
+        [Required] public string FirstName { get; set; }
+        [Required] public string LastName { get; set; }
+
+
+[Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

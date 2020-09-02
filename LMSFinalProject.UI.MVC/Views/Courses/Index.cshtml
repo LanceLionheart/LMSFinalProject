@@ -156,7 +156,7 @@
                data: formData,
                //sending as Json
                dataType: "json",
-               //If it works, show the succes message in the div located above the renderBody in the layout
+               //If it works, show the success message in the div located above the renderBody in the layout
                success: function(data){
                    $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
                    //Clear the form
@@ -243,10 +243,23 @@
        });
 
 
+//****************************************************************************
+       //Submitting/Completing a Lesson
 
+       $('#CompleteLesson').hide();
+       $('#toggleLessonComplete').click(function () {
+           $("#CompleteLesson").toggle();
+           //Toggle text and color of Button
+           if ($('#CompleteLesson').is(':visible')) {
+               $('#toggleLessonComplete').html('Cancel');
+               $('#toggleLessonComplete').attr('class', 'btn btn-danger');
+           } else {
+               $('#toggleLessonComplete').html('Create Course');
+               $('#toggleLessonComplete').attr('class', 'btn btn-primary');
+           }
+       });
 
-
-
+//***********************************************************************************
 
 
 

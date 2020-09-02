@@ -14,6 +14,23 @@
     Create User
 </button>
 
+
+<!--********************************************************-->
+@*<h3>Users</h3>    CHECK USERCONTROLLER FOR INFO
+<ul>
+    @foreach (Product d in ViewBag.DairyProds)
+    {
+        <li>
+            @d.ProductName &mdash; <strong>@string.Format($"{d.Category.CategoryName}")</strong>
+        </li>
+    }
+
+</ul>*@
+
+<!--*************************************************************-->
+
+
+
 <table class="table" id="UserDetailsTable">
     <tr>
         <th>
@@ -42,7 +59,10 @@
                 <a href="" class="DetailsLink" id="@item.UserId">Details</a>
 
 
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.UserId })*@
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+
+
+
                 @if (item.CourseCompletions.Count == 0)
                 {
                     //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)

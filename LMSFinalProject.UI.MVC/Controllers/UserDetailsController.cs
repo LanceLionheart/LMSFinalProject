@@ -14,6 +14,19 @@ namespace LMSFinalProject.UI.MVC.Controllers
     {
         private LMSFinalEntities1 db = new LMSFinalEntities1();
 
+        //**************************************************
+        //public ActionResult UntypedView()
+        //{
+        //    //var userNames = db.UserDetails.ToString((u => u.FirstName + "" + u.LastName);
+
+        //    var userNames = db.UserDetails.Where(u => u.FirstName != null);
+        //    ViewBag.UserNames = userNames;
+
+        //    return View();
+        //}
+        //**************************************************
+
+
         #region AJAX Delete
         [HttpPost]
         public JsonResult AjaxDelete(int id)

@@ -17,9 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.PdfFilename)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.IsActive)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Course.CourseName)
         </th>
@@ -41,16 +41,40 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PdfFilename)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Course.CourseName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
+
+                <!--********************************************************************************-->
+                <!--Complete Link/Button-->
+
+                @*<form action="#" method="get" onsubmit="validateForm(event)">
+
+                    <div id="CompleteLesson" style="padding-left:2em">*@
+                        
+                        @*<a href="@Url.Action("Index","LessonViews")">Complete Lesson</a>*@
+
+
+                        <p class="probootstrap-animate"><a href="@Url.Action("Create", "LessonViews")" class="btn btn-primary mb10" style="color:white">Complete</a></p>
+
+
+                       <!--Partial within Partial V-->
+                        @*@Html.Partial("LessonViewsCreate", new LMSFinalProject.DATA.EF.LessonView())*@
+                    @*</div>
+                    <button id="toggleLessonComplete" class="btn btn-primary" style="padding-left:2em">
+                        Complete Lesson
+                    </button>
+                </form>*@
+                <!--************************************************************************************-->
+
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
             </td>
         </tr>
     }
