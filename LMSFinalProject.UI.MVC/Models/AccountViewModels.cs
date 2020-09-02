@@ -65,8 +65,15 @@ namespace LMSFinalProject.UI.MVC.Models
     public class RegisterViewModel
     {
         //Added from Module 2 Customer User Resource
-        [Required] public string FirstName { get; set; }
-        [Required] public string LastName { get; set; }
+        [Required(ErrorMessage ="*")]
+        [StringLength(50, ErrorMessage = " * Must be 50 characters or less. *")]
+        [Display(Name ="First Name")]
+        public string FirstName { get; set; }
+
+        [Required(ErrorMessage = "*")]
+        [StringLength(50, ErrorMessage = " * Must be 50 characters or less. *")]
+        [Display(Name = "Last Name")]
+        /*[Required] */public string LastName { get; set; }
 
 
 [Required]

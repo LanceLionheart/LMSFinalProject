@@ -169,6 +169,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
                    LMSFinalEntities1 db = new LMSFinalEntities1(); db.UserDetails.Add(newUserDeets); db.SaveChanges();
                     #endregion
 
+                    return View("Login");  //Forgot this
+
                 }
                 AddErrors(result);
             }
