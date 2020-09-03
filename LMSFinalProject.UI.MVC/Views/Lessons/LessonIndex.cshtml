@@ -35,9 +35,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Introduction)
             </td>
+            @if (item.VideoURL != null)
+            {
             <td>
-                @Html.DisplayFor(modelItem => item.VideoURL)
+                <a href=" @Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a> 
             </td>
+            }
             <td>
                 @Html.DisplayFor(modelItem => item.PdfFilename)
             </td>
