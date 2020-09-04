@@ -191,123 +191,128 @@ namespace LMSFinalProject.UI.MVC.Controllers
         }
 
         //****************LESSON COMPLETE DOMINO EFFECT*******************
-        public ActionResult LessonComplete(int? id)  //called line 80 in LessonIndex
-        {         
-            if (Request.IsAuthenticated)
-            {
-                LMSFinalEntities1 db = new LMSFinalEntities1();
+        public ActionResult LessonComplete(int? id)  //Added ? back
+                                                     //called line 80 in LessonIndex
+        {
 
-                string userID = User.Identity.GetUserId();
+            LMSFinalEntities1 db = new LMSFinalEntities1();
 
-                if (User.IsInRole("Employee")) //If user is logged in as "Employee", Lesson/Course clicks saved
-                {//START OF BIG FUNCTION
+            string userID = User.Identity.GetUserId();
 
-                    var viewedlessons = db.LessonViews.Where(l => l.UserId == userID);
-                    bool hasviewed = true;
+            if (User.IsInRole("Employee")) //If user is logged in as "Employee", Lesson/Course clicks saved
+            {//START OF BIG FUNCTION
 
-                    foreach (var Lessonitem in viewedlessons)
+                var viewedlessons = db.LessonViews.Where(l => l.UserId == userID);
+                bool hasviewed = true;
+
+                foreach (var Lessonitem in viewedlessons)
+                {
+                    if (id == Lessonitem.LessonId)
+                        hasviewed = true;
+                }
+                if (hasviewed == false)
+                {
+                    LessonView lv = new LessonView();
+                    lv.DateViewed = DateTime.Now;
+                    lv.UserId = userID;
+                    //lv.LessonViewId
+                    //lv.Lessonid
+
+                    db.LessonViews.Add(lv);
+                    db.SaveChanges();
+                }
+
+                //**************CourseCompletion*******************
+                //Courses viewed is not saved, only completed courses
+
+                Lesson lesson = db.Lessons.Find(id);
+
+                var coursecompleted = db.CourseCompletions.Where(cou => cou.UserId == userID);
+
+                //bool for checking if all lessons done
+                bool coursecomplete = true;
+
+                //variable to find total number of lessons related to specific course
+                var totallesson = db.Lessons.Count(cl => cl.CourseId == cl.LessonId);
+
+                //variable to grab each LessonID related to course
+                var courselesson = db.Lessons.Where(cl => cl.CourseId == lesson.CourseId).Select(l => l.LessonId);
+
+                //variable that keeps count of employee-viewed lessons // If this equals totallesson, Create CC
+                var employeeviewedlessons = 0;
+
+                foreach (var lessonview in db.LessonViews.Where(l => l.UserId == userID))
+                {
+                    foreach (var lessonitem in courselesson)
                     {
-                          if (id == Lessonitem.LessonId)
-                             hasviewed = true;
+                        if (lessonview.LessonId == lessonitem)
+
+                            employeeviewedlessons++;
                     }
-                    if (hasviewed==false)
+                }
+
+                if (employeeviewedlessons == totallesson)
+                {
+                    if (coursecomplete == false)
                     {
-                        LessonView lv = new LessonView();
-                        lv.DateViewed = DateTime.Now;
-                        lv.UserId = userID;
-                        //lv.LessonViewId
-                        //lv.Lessonid
-
-                       db.LessonViews.Add(lv);
-                        db.SaveChanges(); 
-                    }
-
-                    //**************CourseCompletion*******************
-                    //Courses viewed is not saved, only completed courses
-
-                    var coursecompleted = db.Courses.Where(cou => cou.Lessons == viewedlessons);//grabbed from ^
-
-                    bool lessonsalldone = true; //is course completed of all lessons?
-
-                    foreach (var courseitem in coursecompleted)
-                    {
-                        if (id == courseitem.CourseId)
-                            lessonsalldone = false; //course is not yet completed
-                    }
-
-                    if (lessonsalldone == true) //if course is completed, add new CourseCompletion
-                    {
-                        CourseCompletion cc= new CourseCompletion();
+                        CourseCompletion cc = new CourseCompletion();
                         cc.DateCompleted = DateTime.Now;
                         cc.UserId = userID;
-                        //lv.LessonViewId
-                        //lv.Lessonid
+                        //cc.CourseCompletionId = id;
+                        //cc.Courseid = id
 
                         db.CourseCompletions.Add(cc);
                         db.SaveChanges();
                     }
 
+                }                
 
-                    //Make sure this entire function is saving under one person)
-                    //Courses Done, Now Email Manager
-                    var trainingDone = db.CourseCompletions.Where(oo => oo.CourseId == 6);
+                //Make sure this entire function is saving under one person)
+                //Courses Done, Now Email Manager
+                var trainingDone = db.CourseCompletions.Where(oo => oo.CourseId == 6);
 
-                    //bool alldone = true;
-                    //if (trainingDone <= 6)
-                    {
-                        //Email
-                //        MailMessage msg = new MailMessage(
-                //        "admin@lancevogel.com",
-                //"lzvogel@outlook.com",
-                //usersContactRequest.Subject,
-                //usersContactRequest.Message);
+                //bool alldone = true;
+                //if (trainingDone >= 6)
+                {
+                    //Email
+                    //        MailMessage msg = new MailMessage(
+                    //        "admin@lancevogel.com",
+                    //"lzvogel@outlook.com",
+                    //usersContactRequest.Subject,
+                    //usersContactRequest.Message);
 
-                //        msg.IsBodyHtml = true;
-                //        msg.Priority = MailPriority.High;
+                    //        msg.IsBodyHtml = true;
+                    //        msg.Priority = MailPriority.High;
 
-                //        //msg.ReplyToList.Add(cvm.Email);
-                //        //msg.CC.Add("metalsquidlance@gmail.com");
+                    //        //msg.ReplyToList.Add(cvm.Email);
+                    //        //msg.CC.Add("metalsquidlance@gmail.com");
 
-                //        SmtpClient client = new SmtpClient("mail.lancevogel.com");
-                //        client.Credentials = new NetworkCredential("admin@lancevogel.com", "T3s!");
+                    //        SmtpClient client = new SmtpClient("mail.lancevogel.com");
+                    //        client.Credentials = new NetworkCredential("admin@lancevogel.com", "T3s!");
 
-                //        client.Port = 8889;
+                    //        client.Port = 8889;
 
-                //        try
-                //        {
-                //            client.Send(msg);
-                //        }
-                //        catch (System.Exception ex)
-                //        {
-                //            ViewBag.ErrorMessage = "There was a problem . . . </br>" + ex.StackTrace;
+                    //        try
+                    //        {
+                    //            client.Send(msg);
+                    //        }
+                    //        catch (System.Exception ex)
+                    //        {
+                    //            ViewBag.ErrorMessage = "There was a problem . . . </br>" + ex.StackTrace;
 
-                //            return View(usersContactRequest);
-                //        }
+                    //            return View(usersContactRequest);
+                    //        }
 
-                //        return View("EmailConfirmation", usersContactRequest); // send the user to a email conformation view
-                    }
+                    //        return View("EmailConfirmation", usersContactRequest); // send the user to a email conformation view
+                }
 
-                    return RedirectToAction("Course");
+                return RedirectToAction("Course");
 
-                }//END OF BIG FUNCTION
-
-
-
-
-
-                //UserDetail currentUser = db.UserDetails.Where(ud => ud.UserId == userID).FirstOrDefault();
-
-                //string userFN = "Guest";
-
-                //if (currentUser != null)
-                //{
-                //    userFN = currentUser.FirstName;
-                //}
-
-            }
+            }//END OF BIG FUNCTION
 
             return View();
         }
+
 
 
 
@@ -335,6 +340,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
         //    return View();
         //}
 
-      
+
     }
 }

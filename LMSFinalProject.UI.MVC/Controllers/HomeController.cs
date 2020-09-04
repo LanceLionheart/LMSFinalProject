@@ -44,9 +44,10 @@ namespace LMSFinalProject.UI.MVC.Controllers
             //WORKS!!
             var orderLesson = db.LessonViews.Where(ol => ol.DateViewed != null);
 
-            var orderCourse = db.LessonViews.Where(oc => oc.UserId == null);
+            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted == null);
 
-            var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId == 6);
+            //When employee has finished 6 courses, they are added to Annual Training Complete List
+            var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6);
 
             ViewBag.OrderLesson = orderLesson;
             ViewBag.OrderCourse = orderCourse;

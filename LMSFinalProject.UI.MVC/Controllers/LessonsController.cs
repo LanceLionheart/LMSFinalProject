@@ -89,25 +89,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
             //Grab all lessons from that course and add it to a list. Send that list into the view.
             Lesson lv = db.Lessons.Find(course.Lessons.FirstOrDefault().LessonId);
 
-            var CompleteYouTubeURL = lv.VideoURL;
-
-            var v = CompleteYouTubeURL.IndexOf("v=");
-            var amp = CompleteYouTubeURL.IndexOf("&", v);
-            string vid;
-            // if the video id is the last value in the url
-            if (amp == -1)
-            {
-                vid = CompleteYouTubeURL.Substring(v + 2);
-                // if there are other parameters after the video id in the url
-            }
-            else
-            {
-                vid = CompleteYouTubeURL.Substring(v + 2, amp - (v + 2));
-            }
-            ViewBag.VideoID = vid;
-            //Works
-            //var lessons = db.Lessons.Include(l => l.Course);
-
             var lessons = db.Lessons.Where(l => l.Course.CourseId == course.CourseId);
 
             return PartialView(lessons.ToList());

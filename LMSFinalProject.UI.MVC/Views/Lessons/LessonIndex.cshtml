@@ -56,46 +56,12 @@
             </td>
             <td>
 
-                <!--********************************************************************************-->
                 <!--Complete Link/Button-->
-                @*<form action="#" method="get" onsubmit="validateForm(event)">
-
-        <div id="CompleteLesson" style="padding-left:2em">*@
-
-                @*<a href="@Url.Action("Index","LessonViews")">Complete Lesson</a>*@
-
-
-
-                @*<div id="CourseCreate" style="padding-left:2em">
-            @Html.Action("CourseComplete", new LMSFinalProject.DATA.EF.CourseCompletion())
-        </div>
-
-        <button id="toggleCourseComplete" class="btn btn-primary" style="padding-left:2em">
-            Complete Course
-        </button>*@
-
 
                 <!--BIG BUTTON!!-->
 
                 <p class="probootstrap-animate"><a href="@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
 
-
-                @*@Html.ActionLink("LessonComplete", "Courses", new { id = item.LessonId })*@
-
-
-                @*<button id="toggleLessonComplete" class="btn btn-primary" style="padding-left:2em">
-            Complete Lesson
-        </button>*@
-
-
-                <!--Partial within Partial V-->
-                @*@Html.Action("CourseComplete", new LMSFinalProject.DATA.EF.CourseCompletion())*@
-
-                @*<button id="CourseCompleteForm" class="btn btn-primary" style="padding-left:2em">
-            Complete Course
-        </button>*@
-
-                <!--************************************************************************************-->
 
 
                 @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
