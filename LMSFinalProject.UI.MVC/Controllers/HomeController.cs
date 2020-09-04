@@ -41,12 +41,16 @@ namespace LMSFinalProject.UI.MVC.Controllers
         {
             //Linq     Order Information on LessonsViewed and CoursesCompleted
 
-            var orderLesson = db.CourseCompletions.OrderBy(ol => ol.UserId);
+            //WORKS!!
+            var orderLesson = db.LessonViews.Where(ol => ol.DateViewed != null);
 
-            var orderCourse = db.LessonViews.OrderBy(oc => oc.UserId);
+            var orderCourse = db.LessonViews.Where(oc => oc.UserId == null);
+
+            var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId == 6);
 
             ViewBag.OrderLesson = orderLesson;
             ViewBag.OrderCourse = orderCourse;
+            ViewBag.AnnualDone = annualDone;
 
             return View();
         }
