@@ -58,13 +58,14 @@
 
                 <!--Complete Link/Button-->
 
-                <!--BIG BUTTON!!-->
+                <!--BIG BUTTON!!  (Only seen by employees)-->
+                @if (User.IsInRole("Employee"))
+                            {
+                <p class="probootstrap-animate"><a href = "@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
+                            }
 
-                <p class="probootstrap-animate"><a href="@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
 
-
-
-                @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
                 @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
             </td>

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using LMSFinalProject.DATA.EF;
+using System.Net.Mail;
+using LMSFinalProject.UI.MVC.Models; //Added For Contact
 
 using Microsoft.AspNet.Identity; //Added these two
 using Microsoft.AspNet.Identity.Owin;
@@ -191,11 +193,13 @@ namespace LMSFinalProject.UI.MVC.Controllers
         }
 
         //****************LESSON COMPLETE DOMINO EFFECT*******************
-        public ActionResult LessonComplete(int? id)  //Added ? back
-                                                     //called line 80 in LessonIndex
+        public ActionResult LessonComplete(int id)  //Added ? back
+                                                    //called line 80 in LessonIndex
         {
 
             LMSFinalEntities1 db = new LMSFinalEntities1();
+
+            Lesson lesson = db.Lessons.Find(id);
 
             string userID = User.Identity.GetUserId();
 
@@ -216,7 +220,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     lv.DateViewed = DateTime.Now;
                     lv.UserId = userID;
                     //lv.LessonViewId
-                    //lv.Lessonid
+                    lv.LessonId = lesson.LessonId;
 
                     db.LessonViews.Add(lv);
                     db.SaveChanges();
@@ -225,7 +229,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 //**************CourseCompletion*******************
                 //Courses viewed is not saved, only completed courses
 
-                Lesson lesson = db.Lessons.Find(id);
+
 
                 var coursecompleted = db.CourseCompletions.Where(cou => cou.UserId == userID);
 
@@ -251,65 +255,70 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     }
                 }
 
-                if (employeeviewedlessons == totallesson)
+
+                foreach (var comp in coursecompleted)
                 {
-                    if (coursecomplete == false)
-                    {
-                        CourseCompletion cc = new CourseCompletion();
-                        cc.DateCompleted = DateTime.Now;
-                        cc.UserId = userID;
-                        //cc.CourseCompletionId = id;
-                        //cc.Courseid = id
+                    if (comp.CourseId == lesson.CourseId)
+                        coursecomplete = true;
+                }
 
-                        db.CourseCompletions.Add(cc);
-                        db.SaveChanges();
-                    }
+                if (employeeviewedlessons == totallesson && coursecomplete == true)
+                {
+                    CourseCompletion cc = new CourseCompletion();
+                    cc.DateCompleted = DateTime.Now;
+                    cc.UserId = userID;
+                    //cc.CourseCompletionId = id;
+                    cc.CourseId = lesson.CourseId;
 
-                }                
+                    db.CourseCompletions.Add(cc);
+                    db.SaveChanges();
+
+                }
 
                 //Make sure this entire function is saving under one person)
                 //Courses Done, Now Email Manager
                 var trainingDone = db.CourseCompletions.Where(oo => oo.CourseId == 6);
 
-                //bool alldone = true;
-                //if (trainingDone >= 6)
+                bool alldone = true;
+
+                if (trainingDone != null)
                 {
-                    //Email
-                    //        MailMessage msg = new MailMessage(
-                    //        "admin@lancevogel.com",
-                    //"lzvogel@outlook.com",
-                    //usersContactRequest.Subject,
-                    //usersContactRequest.Message);
+                    MailMessage msg = new MailMessage(
+                    "admin@lancevogel.com",
+                    "lzvogel@outlook.com",
+                     "Employee:" + userID + "completed training",
+                     "Employee:" + userID + "has completed their Annual training.");
 
-                    //        msg.IsBodyHtml = true;
-                    //        msg.Priority = MailPriority.High;
+                    msg.IsBodyHtml = true;
+                    msg.Priority = MailPriority.High;
 
-                    //        //msg.ReplyToList.Add(cvm.Email);
-                    //        //msg.CC.Add("metalsquidlance@gmail.com");
+                    //msg.ReplyToList.Add(cvm.Email);
+                    //msg.CC.Add("metalsquidlance@gmail.com");
 
-                    //        SmtpClient client = new SmtpClient("mail.lancevogel.com");
-                    //        client.Credentials = new NetworkCredential("admin@lancevogel.com", "T3s!");
+                    SmtpClient client = new SmtpClient("mail.lancevogel.com");
+                    client.Credentials = new NetworkCredential("admin@lancevogel.com", "Turtle333!");
 
-                    //        client.Port = 8889;
+                    client.Port = 8889;
 
-                    //        try
-                    //        {
-                    //            client.Send(msg);
-                    //        }
-                    //        catch (System.Exception ex)
-                    //        {
-                    //            ViewBag.ErrorMessage = "There was a problem . . . </br>" + ex.StackTrace;
+                    try
+                    {
+                        client.Send(msg);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        ViewBag.ErrorMessage = "There was a problem . . . </br>" + ex.StackTrace;
 
-                    //            return View(usersContactRequest);
-                    //        }
+                        return View("Index");
+                    }
 
-                    //        return View("EmailConfirmation", usersContactRequest); // send the user to a email conformation view
+                    //return View("Courses");
+                    /* return View("EmailConfirmation", "Courses");*/ // Index might need to be Courses. Send the user to a email conformation view
                 }
+                return RedirectToAction("Index");
 
-                return RedirectToAction("Course");
+                //changed from    return RedirectToAction("Courses");
 
             }//END OF BIG FUNCTION
-
             return View();
         }
 
