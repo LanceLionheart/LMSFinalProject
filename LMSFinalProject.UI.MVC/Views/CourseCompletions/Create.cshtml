@@ -1,19 +1,41 @@
 ﻿@model LMSFinalProject.DATA.EF.CourseCompletion
+    @using Microsoft.AspNet.Identity
+    @using LMSFinalProject.DATA.EF;
 
 @{
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<h2>Submit Course?</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("","", FormMethod.Post, new { id = "CourseCompleteForm" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>CourseCompletion</h4>
-        <hr />
+<div class="form-horizontal">
+    <h4>CourseCompletion</h4>
+    <hr />
+
+    <!--****************************Trying to auto grab current logged-in person for Completed Course***********************************-->
+    @if (Request.IsAuthenticated)
+    {
+        LMSFinalEntities1 db = new LMSFinalEntities1();
+
+        string userID = User.Identity.GetUserId();
+
+        UserDetail currentUser = db.UserDetails.Where(ud => ud.UserId == userID).FirstOrDefault();
+
+        string userFN = "Guest";
+
+        if (currentUser != null)
+        {
+            userFN = currentUser.FirstName;
+        }
+    }
+        <!--******************************************************************************-->
+
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -41,7 +63,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-default" />
             </div>
         </div>
     </div>

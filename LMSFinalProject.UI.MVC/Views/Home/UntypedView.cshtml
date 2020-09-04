@@ -1,0 +1,35 @@
+﻿@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Text;
+@using System.Threading.Tasks;
+@using LMSFinalProject.DATA.EF;
+
+
+@{
+    ViewBag.Title = "Employee Progress";
+}
+
+<h2 style="padding-top:4em">@ViewBag.Title</h2>
+
+<h3>Completed Lessons</h3>
+<ul>
+    @foreach (Lesson le in ViewBag.OrderLesson)
+    {
+        <li>
+            @le.LessonTitle &mdash; <strong>@string.Format($"{le.LessonId}")</strong>
+        </li>
+    }
+
+</ul>
+
+<h3>Completed Courses</h3>
+<ul>
+    @foreach (CourseCompletion cou in ViewBag.OrderCourse)
+    {
+        <li>
+            @cou.CourseId &mdash; <strong>@string.Format($"{cou.CourseId}")</strong>
+        </li>
+    }
+
+</ul>

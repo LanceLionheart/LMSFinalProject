@@ -20,7 +20,7 @@
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CourseName)
-            
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.CourseDescription)
@@ -124,7 +124,7 @@
        //#endregion
 
        //AJAX Show Create form - this toggles the end user capability to see the form
-       //When the create publisher button is clicked toggle the creat form visibility
+       //When the create publisher button is clicked toggle the create form visibility
        //back on (it should start hidden)
        $('#CourseCreate').hide();
        $('#toggleCourseCreate').click(function () {
@@ -272,10 +272,110 @@
        //    //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
        //    $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
 
-       //}
+        //}
 
 
+        //Submitting The Complete Course
+
+       $("#CourseCompleteForm").submit(function (e) {
+           var formData = $(this).serializeArray();
+           //Interrupt the normal submit event
+           e.preventDefault();
+           //Message the user while processing
+           $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
+           //call to Ajax
+           $.ajax({
+               //Call the POST PublisherCreate Action
+               url: "@Url.Action("Create", "CourseCompletions")",
+               type: "POST",
+           //serialized form data
+           data: formData,
+           //sending as Json
+           dataType: "json",
+           //If it works, show the success message in the div located above the renderBody in the layout
+           success: function(data){
+               $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
+               //Clear the form
+               $('#CourseCompleteForm')[0].reset();
+               //Add the (temporary) row to the table. Remember the browser
+               //is being manually updated so you will see a message to refresh the view to see the links.
+               //You could code these in, we're leaving out so you can see asynchronous activity.
+               //When the view is refreshed, the new record will reload into the table with links in the last column
+               $(function (){
+                   var row = '<tr><td>' + data.UserId +
+                       '</td><td>' + data.CourseId +
+                       '</td><td>' + data.DateCompleted +
+                       '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                   //Add the row to the table
+                   $('#CourseCompletionsTable').append(row);
+
+                   //close the form and show the create button
+                   $('CourseComplete').toggle();
+                   $('#toggleCourseComplete').html('Complete Course');
+                   $('#toggleCourseComplete').attr('class', 'btn btn-primary')
+               });
+           },
+           //If there is an error, then show the alert message in the div located above the renderBody
+           error: function(e){
+               $('#MessageContent').html("<div class='alert alert-warning'> There was an error. Please try again or contact the site admin. </div>");
+           }
+       });
+       });
+
+
+
+
+        //-************************YOUTUBE VIDEO*****************************
+        var player;
+        var h = '@ViewBag.height';
+        var w = '@ViewBag.width';
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+                height: 360,
+                width: 640,
+                modestbranding: 1,
+                videoId: '@ViewBag.VideoID',
+                playerVars: {
+                    rel: 0,
+                    autoplay: 0,
+                    disablekb: 0,
+                    showsearch: 0,
+                    showinfo: 0,
+                    controls: 1,
+                    fs: 1,
+                    hd: 1,
+                    html5: 1,
+                    iv_load_policy: 3
+                },
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+        // autoplay video
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        // when video ends
+        function onPlayerStateChange(event) {
+            if (event.data === 0) {
+                //do something on end;
+                alert('done');
+            }
+        }
     </script>
+
+
+
+    
+    
+
+    @*<script>*@
+@*// create youtube player
+
+    </script>*@
 
 
 }

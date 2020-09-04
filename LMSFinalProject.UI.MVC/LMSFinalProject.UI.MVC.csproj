@@ -456,6 +456,7 @@
     <Content Include="Views\Lessons\LessonIndex.cshtml" />
     <Content Include="Views\LessonViews\LessonViewsIndex.cshtml" />
     <Content Include="Views\LessonViews\LessonViewsCreate.cshtml" />
+    <Content Include="Views\Home\UntypedView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

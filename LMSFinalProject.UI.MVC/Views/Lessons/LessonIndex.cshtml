@@ -18,8 +18,8 @@
             @Html.DisplayNameFor(model => model.PdfFilename)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>*@
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Course.CourseName)
         </th>
@@ -38,15 +38,19 @@
             @if (item.VideoURL != null)
             {
             <td>
-                <a href=" @Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a> 
+                <a href="@Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a>
             </td>
             }
-            <td>
-                @Html.DisplayFor(modelItem => item.PdfFilename)
-            </td>
+
+            @if (item.VideoURL != null)
+            {
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.PdfFilename)">PDF File</a>
+                </td>
+            }
             @*<td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>*@
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Course.CourseName)
             </td>
@@ -54,33 +58,93 @@
 
                 <!--********************************************************************************-->
                 <!--Complete Link/Button-->
-
                 @*<form action="#" method="get" onsubmit="validateForm(event)">
 
-                    <div id="CompleteLesson" style="padding-left:2em">*@
-                        
-                        @*<a href="@Url.Action("Index","LessonViews")">Complete Lesson</a>*@
+        <div id="CompleteLesson" style="padding-left:2em">*@
+
+                @*<a href="@Url.Action("Index","LessonViews")">Complete Lesson</a>*@
 
 
-                        <p class="probootstrap-animate"><a href="@Url.Action("Create", "LessonViews")" class="btn btn-primary mb10" style="color:white">Complete</a></p>
+
+                @*<div id="CourseCreate" style="padding-left:2em">
+            @Html.Action("CourseComplete", new LMSFinalProject.DATA.EF.CourseCompletion())
+        </div>
+
+        <button id="toggleCourseComplete" class="btn btn-primary" style="padding-left:2em">
+            Complete Course
+        </button>*@
 
 
-                       <!--Partial within Partial V-->
-                        @*@Html.Partial("LessonViewsCreate", new LMSFinalProject.DATA.EF.LessonView())*@
-                    @*</div>
-                    <button id="toggleLessonComplete" class="btn btn-primary" style="padding-left:2em">
-                        Complete Lesson
-                    </button>
-                </form>*@
+                <!--BIG BUTTON!!-->
+
+                <p class="probootstrap-animate"><a href="@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
+
+
+                @*@Html.ActionLink("LessonComplete", "Courses", new { id = item.LessonId })*@
+
+
+                @*<button id="toggleLessonComplete" class="btn btn-primary" style="padding-left:2em">
+            Complete Lesson
+        </button>*@
+
+
+                <!--Partial within Partial V-->
+                @*@Html.Action("CourseComplete", new LMSFinalProject.DATA.EF.CourseCompletion())*@
+
+                @*<button id="CourseCompleteForm" class="btn btn-primary" style="padding-left:2em">
+            Complete Course
+        </button>*@
+
                 <!--************************************************************************************-->
 
 
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
+                @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
             </td>
         </tr>
     }
 
 </table>
+<script>
+            //-************************YOUTUBE VIDEO*****************************
+        @*var player;
+        var h = '@ViewBag.height';
+        var w = '@ViewBag.width';
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+                height: 360,
+                width: 640,
+                modestbranding: 1,
+                videoId: '@ViewBag.VideoID',
+                playerVars: {
+                    rel: 0,
+                    autoplay: 0,
+                    disablekb: 0,
+                    showsearch: 0,
+                    showinfo: 0,
+                    controls: 1,
+                    fs: 1,
+                    hd: 1,
+                    html5: 1,
+                    iv_load_policy: 3
+                },
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+        // autoplay video
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
 
+        // when video ends
+        function onPlayerStateChange(event) {
+            if (event.data === 0) {
+                //do something on end;
+                alert('done');
+            }
+        }*@
+</script>
