@@ -214,7 +214,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     if (id == Lessonitem.LessonId)
                         hasviewed = true;
                 }
-                if (hasviewed == false)
+                if (hasviewed == true)
                 {
                     LessonView lv = new LessonView();
                     lv.DateViewed = DateTime.Now;
@@ -225,6 +225,9 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     db.LessonViews.Add(lv);
                     db.SaveChanges();
                 }
+
+
+
 
                 //**************CourseCompletion*******************
                 //Courses viewed is not saved, only completed courses
@@ -279,10 +282,13 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 //Courses Done, Now Email Manager
                 var trainingDone = db.CourseCompletions.Where(oo => oo.CourseId == 6);
 
+                //var fname = db.UserDetails.Where(f => f.FirstName == userID);
+
                 bool alldone = true;
 
                 if (trainingDone != null)
                 {
+
                     MailMessage msg = new MailMessage(
                     "admin@lancevogel.com",
                     "lzvogel@outlook.com",

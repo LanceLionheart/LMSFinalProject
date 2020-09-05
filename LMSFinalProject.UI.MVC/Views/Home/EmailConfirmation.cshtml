@@ -1,0 +1,12 @@
+﻿@model LMSFinalProject.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "EmailConfirmation";
+}
+
+<h2 style="background-color: teal; padding-top:6em">EmailConfirmation</h2>
+
+<p>
+    We got your message, @Model.Name! Please see below <br /><br />  @*HTML.RAW to get rid of br in plain text*@
+    @Model.Message
+</p>

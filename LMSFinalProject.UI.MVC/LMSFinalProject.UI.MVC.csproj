@@ -197,6 +197,7 @@
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\img\abbackground.jpg" />
     <Content Include="Content\img\bg-img\c-1.jpg" />
     <Content Include="Content\img\bg-img\c-2.jpg" />
     <Content Include="Content\img\bg-img\c-3.jpg" />
@@ -246,6 +247,10 @@
     <Content Include="Content\img\core-img\trophy.png" />
     <Content Include="Content\img\core-img\video-camera.png" />
     <Content Include="Content\img\core-img\work-progress.png" />
+    <Content Include="Content\img\dinosauricon.png" />
+    <Content Include="Content\img\dinosauricon2.png" />
+    <Content Include="Content\img\dinosauricon3.png" />
+    <Content Include="Content\img\lightbuildimage.jpg" />
     <Content Include="Content\img\portfolio-img\1.jpg" />
     <Content Include="Content\img\portfolio-img\10.jpg" />
     <Content Include="Content\img\portfolio-img\11.jpg" />
@@ -258,6 +263,9 @@
     <Content Include="Content\img\portfolio-img\7.jpg" />
     <Content Include="Content\img\portfolio-img\8.jpg" />
     <Content Include="Content\img\portfolio-img\9.jpg" />
+    <Content Include="Content\img\skillsimage.jpg" />
+    <Content Include="Content\img\techimage.jpg" />
+    <Content Include="Content\img\trexbackground.jpg" />
     <Content Include="Content\js\active.js" />
     <Content Include="Content\js\bootstrap.min.js" />
     <Content Include="Content\js\jquery-2.2.4.min.js" />
@@ -458,6 +466,8 @@
     <Content Include="Views\LessonViews\LessonViewsIndex.cshtml" />
     <Content Include="Views\LessonViews\LessonViewsCreate.cshtml" />
     <Content Include="Views\Home\UntypedView.cshtml" />
+    <Content Include="Views\Home\UntypedViewEmployee.cshtml" />
+    <Content Include="Views\Home\EmailConfirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -51,14 +51,17 @@
                     <div class="menu_area h-100">
                         <nav class="navbar h-100 navbar-expand-lg align-items-center">
                             <!-- Logo -->
-                            <a class="navbar-brand" href="index.html"><img src="~/Content/img/core-img/logo.png" alt="logo"></a>
+                            <a class="navbar-brand" href="index.html"><img src="~/Content/img/dinosauricon3.png" alt="logo" style="width:85%" ></a>
+                            
 
                             <!-- Menu Area -->
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mosh-navbar" aria-controls="mosh-navbar" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 
                             <div class="collapse navbar-collapse justify-content-end" id="mosh-navbar">
                                 <ul class="navbar-nav animated" id="nav">
-                                    <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index","Home")">Home</a></li>
+
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Home")">Home</a></li>
+
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="moshDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MENU</a>
                                         <div class="dropdown-menu" aria-labelledby="moshDropdown">
@@ -66,28 +69,33 @@
 
                                             @if (User.IsInRole("HR Admin") || User.IsInRole("Manager"))
                                             {
-                                                <a class="dropdown-item" href="@Url.Action("Index", "LessonViews")">Lessons Viewed</a>
+                                                @*<a class="dropdown-item" href="@Url.Action("Index", "LessonViews")">Lessons Viewed</a>*@
+
                                             }
+                                            <!--Move to Manager Only View after testing-->
                                             <a class="dropdown-item" href="@Url.Action("UntypedView","Home")">Employee Progress</a>
 
-                                            <a class="dropdown-item" href="@Url.Action("Index","UserDetails")">User Details</a>
+                                            <!--Need to make your progress employee viewable only-->
+                                            <a class="dropdown-item" href="@Url.Action("UntypedViewEmployee","Home")">Your Progress</a>
+
+                                            @*<a class="dropdown-item" href="@Url.Action("Index","UserDetails")">User Details</a>*@
                                             <a class="dropdown-item" href="@Url.Action("Index","Courses")">Courses</a>
                                             <a class="dropdown-item" href="@Url.Action("Index","CourseCompletions")">Completed Courses</a>
                                         </div>
                                     </li>
 
                                     @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Index","LessonsViewed")">Lessons Viewed</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","UserDetails")">User Details</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Lessons")">Lessons</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Courses")">Courses</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","CourseCompletion")">Completed Courses</a></li>*@
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","UserDetails")">User Details</a></li>
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Lessons")">Lessons</a></li>
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Courses")">Courses</a></li>
+                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","CourseCompletion")">Completed Courses</a></li>*@
 
 
                                     @*<li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>*@
+                <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>*@
 
-                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact","Home")">Contact</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact","Home")">Contact HR</a></li>
 
                                     @if (User.IsInRole("HR Admin"))
                                     {
@@ -95,24 +103,14 @@
                                         <li>@Html.ActionLink("Add Users", "Index", "UsersAdmin")</li>
                                     }
                                 </ul>
-                                <!-- Search Form Area Start -->
-                                <div class="search-form-area animated">
-                                    <form action="#" method="post">
-                                        <input type="search" name="search" id="search" placeholder="Type keywords &amp; hit enter">
-                                        <button type="submit" class="d-none"><img src="~/Content/img/core-img/search-icon.png" alt="Search"></button>
-                                    </form>
-                                </div>
-                                <!-- Search btn -->
-                                <div class="search-button">
-                                    <a href="#" id="search-btn"><img src="~/Content/img/core-img/search-icon.png" alt="Search"></a>
-                                </div>
+
                                 <!-- Login/Register btn -->
                                 @Html.Partial("_LoginPartial")
                                 @*<div class="login-register-btn">
-                                        <a href="@Url.Action("Login","Account")">Login</a>
-                                        <a href="@Url.Action("Register","Account")">/ Register</a>
+                <a href="@Url.Action("Login","Account")">Login</a>
+                <a href="@Url.Action("Register","Account")">/ Register</a>
 
-                                    </div>*@
+            </div>*@
                             </div>
                         </nav>
                     </div>
@@ -219,6 +217,7 @@
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     Copyright &copy;
                                     <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Coverted by Lance Vogel
+                                    <div style="color:#abadbe; font-size: 10px">Icons made by <a href="https://www.flaticon.com/free-icon/dinosaur_2614727" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>
                             </div>

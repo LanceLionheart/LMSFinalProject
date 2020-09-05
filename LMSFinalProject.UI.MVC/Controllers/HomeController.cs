@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using LMSFinalProject.DATA.EF;
+using System.Net.Mail;
+using System.Net;
+using LMSFinalProject.Models;
 
 namespace LMSFinalProject.UI.MVC.Controllers
 {
@@ -44,7 +47,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
             //WORKS!!
             var orderLesson = db.LessonViews.Where(ol => ol.DateViewed != null);
 
-            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted == null);
+            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null);
 
             //When employee has finished 6 courses, they are added to Annual Training Complete List
             var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6);
@@ -54,6 +57,69 @@ namespace LMSFinalProject.UI.MVC.Controllers
             ViewBag.AnnualDone = annualDone;
 
             return View();
+        }
+
+
+        //Employee Course Completed View
+        public ActionResult UntypedViewEmployee()
+        {
+            var empCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null);
+            var empnoCourse = db.CourseCompletions.Where(en => en.CourseId != en.CourseId);
+
+            //var empnoCourse = db.CourseCompletions.Where(en => en.UserId != en.UserDetail.UserId);
+
+            ViewBag.EmpCourse = empCourse;
+            ViewBag.EmpNoCourse = empnoCourse;
+
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]  //Error message creator
+        public ActionResult Contact(ContactViewModel usersContactRequest)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(usersContactRequest);
+            }
+
+            //The MailMessage Object takes several parameters has 3 overloads 
+            //This instance in particular takes 4 parameters:
+            //from: admin@yourdomain.com
+            //to: lzvogel@outlook.com
+            //subject: usersContactRequest.Subject (ContactViewModel passed into the POST Contact route (above))
+            //message: usersContactRequest.Message (ContactViewModel passed into the POST Contact route (above))
+            MailMessage msg = new MailMessage(
+                "admin@lancevogel.com",
+                "lzvogel@outlook.com",
+                usersContactRequest.Subject,
+                usersContactRequest.Message);
+
+            msg.IsBodyHtml = true;
+            msg.Priority = MailPriority.High;
+
+            //msg.ReplyToList.Add(cvm.Email);
+            //msg.CC.Add("metalsquidlance@gmail.com");
+
+            SmtpClient client = new SmtpClient("mail.lancevogel.com");
+            client.Credentials = new NetworkCredential("admin@lancevogel.com", "Turtle333!");
+
+            client.Port = 8889;
+
+            try
+            {
+                client.Send(msg);
+            }
+            catch (System.Exception ex)
+            {
+                ViewBag.ErrorMessage = "There was a problem . . . </br>" + ex.StackTrace;
+
+                return View(usersContactRequest);
+            }
+
+            return View("EmailConfirmation", usersContactRequest); // send the user to a email conformation view
         }
 
 

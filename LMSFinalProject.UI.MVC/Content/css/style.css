@@ -60,7 +60,7 @@ li {
 
 p {
     font-family: 'Roboto', sans-serif;
-    color: #abadbe;
+    color: #404551;
     font-size: 15px;
     font-weight: 500;
     margin-top: 0;
@@ -474,7 +474,7 @@ img {
 .welcome_area {
     position: relative;
     z-index: 2;
-    height: 1200px;
+    height: 745px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -486,7 +486,7 @@ img {
 }
 
 .single-hero-slide {
-    height: 1200px;
+    height: 700px;
     width: 100%;
     position: relative;
     z-index: 1;

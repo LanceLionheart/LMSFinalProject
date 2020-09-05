@@ -14,40 +14,43 @@
     ViewBag.Title = "Employee Progress";
 }
 
-<h2 style="padding-top:4em">@ViewBag.Title</h2>
+<div style="padding-left:3em; padding-bottom: 2em">
+    <h2 style="padding-top:4em; font-family:'Franklin Gothic'; font-size:40px">@ViewBag.Title</h2>
 
-<h3>Completed Lessons</h3>
-<ul style="padding-bottom:4em">
-    @foreach (LessonView le in ViewBag.OrderLesson)  //Home Controller
+    <h3>Completed Lessons</h3>
+    <ul style="padding-bottom:1.5em">
+        @foreach (LessonView le in ViewBag.OrderLesson)  //Home Controller
+        {
+            <li style="color:black;">
+                @le.UserDetail.FirstName &mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{le.DateViewed.Date}")
+            </li>
+        }
+    </ul>
+
+    <h3>Completed Courses</h3>
+    <ul style="padding-bottom:1.5em">
+        @foreach (CourseCompletion cou in ViewBag.OrderCourse)
+        {
+            <li>
+                @cou.UserDetail.FirstName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+            </li>
+        }
+
+        @*@Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
+        @*@Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })*@
+
+    </ul>
+
+    <h3>Completed Annual Training</h3>
+    @foreach (CourseCompletion ad in ViewBag.AnnualDone)
     {
-    <li style="color:black; padding-left:2em">
-        @le.UserDetail.FirstName &mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{le.DateViewed}")
-    </li>
+    <ul>
+        <li>
+            @ad.UserDetail.FirstName  &mdash; <strong>@string.Format($"{DateTime.Now}")</strong>
+        </li>
+    </ul>
     }
-
-</ul>
-
-<h3>Completed Courses</h3>
-<ul>
-    @foreach (CourseCompletion cou in ViewBag.OrderCourse)
-    {
-    <li>
-        @cou.UserDetail.FirstName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
-    </li>
-    }
-
-    @*@Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-    @*@Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })*@
-
-</ul>
-
-<h3>Completed Annual Training</h3>
-@foreach (CourseCompletion ad in ViewBag.AnnualDone)
-{
-<li>
-    @ad.UserDetail.FirstName  &mdash; <strong>@string.Format($"{DateTime.Now}")</strong>
-</li>
-}
+</div>
 
 
 

@@ -3,14 +3,14 @@
 }
 
 
-<section class="welcome_area clearfix" id="home" style="background-image: url(/Content/img/bg-img/welcome-bg.png)">
-    <div class="hero-slides owl-carousel">
+<section class="welcome_area clearfix" id="home" style="background-image: url(/Content/img/abbackground.jpg); width: auto">
+    <div @*class="hero-slides owl-carousel"*@>
         <!-- Single Hero Slides -->
         <div class="single-hero-slide d-flex align-items-end justify-content-center">
             <div class="hero-slide-content text-center">
-                <h2 style="font-size:2em">A.L.L.O. (Annual Lesson Learning Objectives) <em>Saurus</em></h2>
-                <h4>Get your freebie template now!</h4>
-                <img class="slide-img" src="~/Content/img/bg-img/device.png" alt="">
+                <h2 style="font-size:2em; font-family:'Bodoni MT' ">A.L.L.O. (Annual Lesson Learning Objectives)</h2>
+                <h4 style="font-size: 20px">Helping you keep up-to-date on your training!</h4>
+                <img class="slide-img" src="~/Content/img/lightbuildimage.jpg" alt="" style="width:60%">
             </div>
         </div>
         <!-- Single Hero Slides -->
@@ -25,7 +25,7 @@
 </section>
 <!-- ***** Welcome Area End ***** -->
 <!-- ***** Service Area Start ***** -->
-<section class="mosh-service-area clearfix">
+<section class="mosh-service-area clearfix" style="padding-top:2em">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -69,87 +69,11 @@
                 </div>
             </div>
             <!-- Discover More btn -->
-            <div class="col-12 text-center mt-100">
-                <a href="#" class="btn mosh-btn">Discover More</a>
+            <div class="col-12 text-center mt-100" style="padding-bottom:2em">
+                <a href="@Url.Action("Index","Courses")" class="btn mosh-btn">Courses</a>
             </div>
         </div>
     </div>
 </section>
 <!-- ***** Service Area End ***** -->
-<!-- ***** Clients Area Start ***** -->
-<section class="mosh-clients-area section_padding_100 clearfix">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading text-center">
-                    <p>clients</p>
-                    <h2>All our clients love our work</h2>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="clients-logo-area d-sm-flex align-items-center justify-content-between">
-                    <a href="#"><img src="~/Content/img/clients-img/1.png" alt=""></a>
-                    <a href="#"><img src="~/Content/img/clients-img/2.png" alt=""></a>
-                    <a href="#"><img src="~/Content/img/clients-img/3.png" alt=""></a>
-                    <a href="#"><img src="~/Content/img/clients-img/4.png" alt=""></a>
-                    <a href="#"><img src="~/Content/img/clients-img/5.png" alt=""></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- ***** Clients Area End ***** -->
-<!-- ***** Features Area Start ***** -->
-<section class="mosh-features-area section_padding_100 clearfix">
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-12 col-md-6">
-                <div class="section-heading">
-                    <p>clients</p>
-                    <h2>What you get if you start your business with us</h2>
-                </div>
-                <div class="features-content">
-                    <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellentesque sit am et tellus blandit. Etiam nec odio vestibul. Etiam nec odio vestibulum est mat tis effic iturut magna. Pellentesque sit amet tellus blandit. Etiam nec odio ves tibul. Nec odio vestibulum est mattis effic iturut magna. Pellente sque sita met tellus blandit. Etiam nec odio.</p>
-                    <!-- Progress Bar Content Area -->
-                    <div class="features-progress-bar mt-50">
-                        <!-- Single Progress Bar -->
-                        <div class="single_progress_bar mb-15 wow fadeInUp" data-wow-delay="0.2s">
-                            <p>Development</p>
-                            <div id="bar1" class="barfiller">
-                                <div class="tipWrap">
-                                    <span class="tip"></span>
-                                </div>
-                                <span class="fill" data-percentage="70"></span>
-                            </div>
-                        </div>
-                        <!-- Single Progress Bar -->
-                        <div class="single_progress_bar mb-15 wow fadeInUp" data-wow-delay="0.4s">
-                            <p>Design</p>
-                            <div id="bar2" class="barfiller">
-                                <div class="tipWrap">
-                                    <span class="tip"></span>
-                                </div>
-                                <span class="fill" data-percentage="90"></span>
-                            </div>
-                        </div>
-                        <!-- Single Progress Bar -->
-                        <div class="single_progress_bar mb-15 wow fadeInUp" data-wow-delay="0.6s">
-                            <p>SEO</p>
-                            <div id="bar3" class="barfiller">
-                                <div class="tipWrap">
-                                    <span class="tip"></span>
-                                </div>
-                                <span class="fill" data-percentage="55"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Feature Thumb -->
-    <div class="features-img">
-        <img src="~/Content/img/bg-img/features.png" alt="">
-    </div>
-</section>
-<!-- ***** Feature Area End ***** -->
+

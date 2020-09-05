@@ -1,0 +1,49 @@
+﻿@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Text;
+@using System.Threading.Tasks;
+@using LMSFinalProject.DATA.EF;
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Your Course Progress. Six required for Annual Training";
+}
+
+<h2 style="padding-top:3em">@ViewBag.Title</h2>
+
+@foreach (CourseCompletion cou in ViewBag.EmpCourse)
+{
+    <ul>
+        <li>
+            @cou.UserDetail.FirstName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+        </li>
+    </ul>
+}
+
+<h2>Incomplete Courses</h2>
+@foreach (CourseCompletion coul in ViewBag.EmpNoCourse)
+{<ul>
+    <li>
+        @coul.UserDetail.FirstName &mdash; <strong>@string.Format($"{coul.Course.CourseName}")</strong>
+    </ul>
+}
+
+
+
+
+
+<!--Potential for Status Bar-->
+@*<div id="progressbar" style="position:relative; width: 900px">
+        <span id="progressbar-label" style="position:absolute; left: 50%; top:20%">Annual Training Progress</span>
+    </div>
+
+                    <script>
+
+       Progress Bar for Employee Course Completion
+    $( function() {
+        $( "#progressbar" ).progressbar({
+          value: 6
+        });
+    });
+      </script>*@
