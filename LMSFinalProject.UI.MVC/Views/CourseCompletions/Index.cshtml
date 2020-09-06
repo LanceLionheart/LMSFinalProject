@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<LMSFinalProject.DATA.EF.CourseCompletion>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Course Complete";
 }
 
-<h2 style="padding-top: 3em">Index</h2>
+<h2 style="padding-top: 3em; padding-left:1em">@ViewBag.Title</h2>
 
-<p>
+<p style="padding-left:2em">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table" id="CourseCompletionsTable" style="padding-left:2em">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCompleted)
+        <th>Date Completed
+            @*@Html.DisplayNameFor(model => model.DateCompleted)*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course.CourseName)
+        <th>Course Name
+            @*@Html.DisplayNameFor(model => model.Course.CourseName)*@
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+        <th>Name
+            @*@Html.DisplayNameFor(model => model.UserDetail.FirstName)*@
         </th>
         <th></th>
     </tr>
@@ -33,6 +33,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
+            @Html.DisplayFor(modelItem=> item.UserDetail.LastName)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CourseCompletionId }) |

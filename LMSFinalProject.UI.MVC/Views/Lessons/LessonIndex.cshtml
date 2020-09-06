@@ -1,79 +1,81 @@
 ﻿@model IEnumerable<LMSFinalProject.DATA.EF.Lesson>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LessonTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Introduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VideoURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PdfFilename)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Course.CourseName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+@if (User.IsInRole("HR Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LessonTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Introduction)
-            </td>
-            @if (item.VideoURL != null)
-            {
-            <td>
-                <a href="@Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a>
-            </td>
-            }
-
-            @if (item.VideoURL != null)
-            {
-                <td>
-                    <a href="@Html.DisplayFor(modelItem => item.PdfFilename)">PDF File</a>
-                </td>
-            }
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Course.CourseName)
-            </td>
-            <td>
-
-                <!--Complete Link/Button-->
-
-                <!--BIG BUTTON!!  (Only seen by employees)-->
-                @if (User.IsInRole("Employee"))
-                            {
-                <p class="probootstrap-animate"><a href = "@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
-                            }
-
-
-                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.LessonTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Introduction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VideoURL)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PdfFilename)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Course.CourseName)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
-<script>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Introduction)
+                </td>
+                @if (item.VideoURL != null)
+                {
+                    <td>
+                        <a href="@Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a>
+                    </td>
+                }
+
+                @if (item.VideoURL != null)
+                {
+                    <td>
+                        <embed src="@Html.DisplayFor(modelItem => item.PdfFilename)" width="600px" height="800px" />
+                    </td>
+                }
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                </td>
+                <td>
+
+                    <!--Complete Link/Button-->
+                    <!--BIG BUTTON!!  (Only seen by employees)-->
+                    @if (User.IsInRole("Employee"))
+                    {
+                        <p class="probootstrap-animate"><a href="@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
+                    }
+
+
+                    @*@Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+    <script>
             //-************************YOUTUBE VIDEO*****************************
         @*var player;
         var h = '@ViewBag.height';
@@ -114,4 +116,4 @@
                 alert('done');
             }
         }*@
-</script>
+    </script>

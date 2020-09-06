@@ -4,7 +4,7 @@
     ViewBag.Title = "Lessons";
 }
 
-<h2 style="padding-top: 3em">@ViewBag.Title</h2>
+<h2 style="padding-top: 3em; padding-left:1em">@ViewBag.Title</h2>
 
 <!--AJAX Create Form-->
 <div id="LessonCreate">
@@ -21,7 +21,7 @@
     </p>*@
 
 
-<table class="table" id="LessonsTable">
+<table class="table" id="LessonsTable" style="padding-left:2em">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LessonTitle)

@@ -65,8 +65,12 @@
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="moshDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">MENU</a>
                                         <div class="dropdown-menu" aria-labelledby="moshDropdown">
-                                            <a class="dropdown-item" href="@Url.Action("Index","Lessons")">Lessons</a>
 
+                                            @if (User.IsInRole("HR Admin"))
+                                            {
+                                                <a class="dropdown-item" href="@Url.Action("Index", "Lessons")">Lessons</a>
+                                                <a class="dropdown-item" href="@Url.Action("Index","CourseCompletions")">Completed Courses</a>
+                                            }
                                             @if (User.IsInRole("HR Admin") || User.IsInRole("Manager"))
                                             {
                                                 @*<a class="dropdown-item" href="@Url.Action("Index", "LessonViews")">Lessons Viewed</a>*@
@@ -80,7 +84,7 @@
 
                                             @*<a class="dropdown-item" href="@Url.Action("Index","UserDetails")">User Details</a>*@
                                             <a class="dropdown-item" href="@Url.Action("Index","Courses")">Courses</a>
-                                            <a class="dropdown-item" href="@Url.Action("Index","CourseCompletions")">Completed Courses</a>
+
                                         </div>
                                     </li>
 
@@ -136,18 +140,18 @@
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="single-footer-widget mb-100">
                             <a href="#" class="mb-50 d-block"><img src="~/Content/img/core-img/logo.png" alt=""></a>
-                            <p>Etiam nec odio vestibulum est mattis effic iturut magna. Pellent esque sit amet tellus blandit. Etiam nec odio vestibul.</p>
+                            <p>We hope this annual training keeps your refreshed on what's important in the work environemnt. Please Contact HR if you have any questions.</p>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="single-footer-widget mb-100">
                             <h5>Fast links</h5>
                             <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">Testimonials</a></li>
-                                <li><a href="#">Services &amp; Features</a></li>
-                                <li><a href="#">Accordions and tabs</a></li>
-                                <li><a href="#">Menu ideas</a></li>
+                                <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                                <li><a href="@Url.Action("Index","Courses")">Courses</a></li>
+                                <li><a href="@Url.Action("UntypedViewEmployee","Home")">Your Progress</a></li>
+                                @*<li><a href="#">Accordions and tabs</a></li>
+                                <li><a href="#">Menu ideas</a></li>*@
                             </ul>
                         </div>
                     </div>
@@ -187,7 +191,7 @@
                                 <div class="contact-icon">
                                     <img src="~/Content/img/core-img/map.png" alt="">
                                 </div>
-                                <p>4127/ 5B-C Mislane Road, Gibraltar, UK</p>
+                                <p>22 Grizzly Road, Kalispell, Montana</p>
                             </div>
                             <div class="footer-single-contact-info d-flex">
                                 <div class="contact-icon">
@@ -221,14 +225,14 @@
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>
                             </div>
-                            <div class="footer-social-info">
+                            @*<div class="footer-social-info">
                                 <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
                                 <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            </div>
+                            </div>*@
                         </div>
                     </div>
                 </div>
