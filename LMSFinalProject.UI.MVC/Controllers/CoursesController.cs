@@ -283,8 +283,9 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 var trainingDone = db.CourseCompletions.Where(oo => oo.CourseId == 6);
 
                 //var fname = db.UserDetails.Where(f => f.FirstName == userID);
+                //foreach (var finished in db.CourseCompletions.Where(oo => oo.CourseCompletionId == 6))
 
-                bool alldone = true;
+               bool alldone = true;
 
                 if (trainingDone != null)
                 {

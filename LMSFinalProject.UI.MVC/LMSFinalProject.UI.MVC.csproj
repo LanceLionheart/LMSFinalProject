@@ -191,6 +191,7 @@
   <ItemGroup>
     <Content Include="Content\css\animate.css" />
     <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\CustomStyles.css" />
     <Content Include="Content\css\font-awesome.min.css" />
     <Content Include="Content\css\magnific-popup.css" />
     <Content Include="Content\css\owl.carousel.min.css" />
@@ -247,10 +248,13 @@
     <Content Include="Content\img\core-img\trophy.png" />
     <Content Include="Content\img\core-img\video-camera.png" />
     <Content Include="Content\img\core-img\work-progress.png" />
+    <Content Include="Content\img\dinofootprint.jpg" />
+    <Content Include="Content\img\dinofootprintparent.jpg" />
     <Content Include="Content\img\dinosauricon.png" />
     <Content Include="Content\img\dinosauricon2.png" />
     <Content Include="Content\img\dinosauricon3.png" />
     <Content Include="Content\img\lightbuildimage.jpg" />
+    <Content Include="Content\img\nodes.jpg" />
     <Content Include="Content\img\portfolio-img\1.jpg" />
     <Content Include="Content\img\portfolio-img\10.jpg" />
     <Content Include="Content\img\portfolio-img\11.jpg" />

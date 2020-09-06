@@ -40,9 +40,10 @@
                 </td>
                 @if (item.VideoURL != null)
                 {
-                    <td>
-                        <a href="@Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a>
-                    </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a>
+                    @*<embed src="@Html.DisplayFor(modelItem => item.VideoURL)" width="560px" height="340px" />*@
+                </td>
                 }
 
                 @if (item.VideoURL != null)

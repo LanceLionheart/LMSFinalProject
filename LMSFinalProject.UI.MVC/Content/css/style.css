@@ -60,11 +60,13 @@ li {
 
 p {
     font-family: 'Roboto', sans-serif;
-    color: #404551;
+    color: #9db0e2;
     font-size: 15px;
     font-weight: 500;
     margin-top: 0;
     line-height: 1.9;
+    color: #fff; /*Added*/
+    font-weight: 500;
 }
 
 ul,
@@ -459,12 +461,13 @@ img {
 /* Sticky CSS */
 
 .header_area.sticky {
-    background-color: #25499f;
+    background-color: rgba(32, 69, 120, 0.50); /*Header bar #373274;*/
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     height: 80px;
     position: fixed;
     top: 0;
     z-index: 999;
+    /*outline:solid;*/ /*Added*/
 }
 
 /* --------------------------
@@ -940,7 +943,7 @@ span.accor-open {
 }
 
 .single-footer-widget ul > li > a {
-    color: rgba(226, 219, 243, 0.30);
+    color: #b1b3c3;
     margin-bottom: 10px!important;
     display: block;
     font-weight: 500;
@@ -994,7 +997,7 @@ span.accor-open {
 
 .footer-single--blog-post .blog-post-date > p:hover,
 .footer-single--blog-post .blog-post-title > h6:hover {
-    color: #4a7aec;
+    color: #abadbe;
 }
 
 .footer-single-contact-info .contact-icon {
