@@ -79,17 +79,28 @@
 
 <script>
     //Submit the form
+    //Submit the form
     $("#LessonEditForm").submit(function (e) {
+        //Serialize (package the form data for transport as an object)
+        //Create an array of objects with a name and value
         var formData = $(this).serializeArray();
+        //Interrupt the normal submit event
         e.preventDefault();
+        //Message the user while processing
         $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
+        //call to Ajax
         $.ajax({
+            //Call the POST CourseCreate Action
             url: "@Url.Action("AjaxEdit", "Lessons")",
             type: "POST",
+        //serialized form data
         data: formData,
+        //sending as Json
         dataType: "json",
+        //If it works, show the succes message in the div located above the renderBody in the layout
         success: function(data){
             $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully updated!</div>");
+            //Clear the form
             $('#LessonEditForm')[0].reset();
             //Add the (temporary) row to the table. Remember the browser
             //is being manually updated so you will see a message to refresh the view to see the links.

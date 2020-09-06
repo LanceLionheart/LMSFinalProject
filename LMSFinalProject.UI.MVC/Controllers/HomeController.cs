@@ -63,8 +63,12 @@ namespace LMSFinalProject.UI.MVC.Controllers
         //Employee Course Completed View
         public ActionResult UntypedViewEmployee()
         {
+            //Courses completed by employees
             var empCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null);
+
+            //Courses not completed by employees
             var empnoCourse = db.CourseCompletions.Where(en => en.CourseId != en.CourseId);
+
 
             //var empnoCourse = db.CourseCompletions.Where(en => en.UserId != en.UserDetail.UserId);
 

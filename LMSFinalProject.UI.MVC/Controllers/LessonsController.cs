@@ -122,7 +122,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
         // GET: Lessons/Create
         public ActionResult Create()
         {
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName");
+            ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName");
             return View();
         }
 
@@ -140,7 +140,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", lesson.CourseId);
+            ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);
             return View(lesson);
         }
 
@@ -156,7 +156,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", lesson.CourseId);
+            ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);
             return View(lesson);
         }
 
@@ -173,7 +173,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CourseId = new SelectList(db.Courses, "CourseId", "CourseName", lesson.CourseId);
+            ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);
             return View(lesson);
         }
 
