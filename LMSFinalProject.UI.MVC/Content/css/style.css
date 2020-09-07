@@ -313,7 +313,7 @@ img {
 }
 
 .mosh-btn {
-    background-color: #4a7aec;
+    background-color: #3c6ad6;
     min-width: 150px;
     height: 54px;
     padding: 0 30px;
@@ -327,10 +327,10 @@ img {
     transition-duration: 500ms;
 }
 
-.mosh-btn:hover {
-    background-color: #1a3c8d;
-    color: #fff;
-}
+    .mosh-btn:hover {
+        background-color: #2b3990;
+        color: #fff;
+    }
 
 .bg-overlay,
 .bg-overlay-white {

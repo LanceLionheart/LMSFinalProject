@@ -9,38 +9,44 @@
 <p style="padding-left:2em">
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table" id="CourseCompletionsTable" style="padding-left:2em">
-    <tr>
-        <th>Date Completed
-            @*@Html.DisplayNameFor(model => model.DateCompleted)*@
-        </th>
-        <th>Course Name
-            @*@Html.DisplayNameFor(model => model.Course.CourseName)*@
-        </th>
-        <th>Name
-            @*@Html.DisplayNameFor(model => model.UserDetail.FirstName)*@
-        </th>
-        <th></th>
-    </tr>
+<div style="padding-left:2em">
+    <table class="table" id="CourseCompletionsTable" style="padding-left:2em">
+        <tr>
+            <th>
+                Date Completed
+                @*@Html.DisplayNameFor(model => model.DateCompleted)*@
+            </th>
+            <th>
+                Course Name
+                @*@Html.DisplayNameFor(model => model.Course.CourseName)*@
+            </th>
+            <th>
+                Name
+                @*@Html.DisplayNameFor(model => model.UserDetail.FirstName)*@
+            </th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCompleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.CourseName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
-            @Html.DisplayFor(modelItem=> item.UserDetail.LastName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseCompletionId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseCompletionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseCompletionId })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCompleted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
+                    @Html.DisplayFor(modelItem => item.UserDetail.LastName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseCompletionId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseCompletionId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseCompletionId })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>

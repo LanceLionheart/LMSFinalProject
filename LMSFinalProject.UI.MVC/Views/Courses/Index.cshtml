@@ -4,7 +4,7 @@
     ViewBag.Title = "Courses";
 }
 
-<h2 style="padding-top: 4em; padding-left:8px;">@ViewBag.Title</h2>
+<h2 style="padding-top: 3em; padding-left:1em;">@ViewBag.Title</h2>
 
 @if (User.IsInRole("HR Admin"))
 {
@@ -18,93 +18,105 @@
     @*<p>
             @Html.ActionLink("Create New", "Create")
         </p>*@
-    <table class="table" id="CoursesTable" style="padding-left:2em; font-weight:500">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseName)
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseDescription)
-            </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>*@
-            <th></th>
-        </tr>
+    <div style="padding-left:2em">
+        <table class="table" id="CoursesTable" style="padding-left:2em; font-weight:500">
+            <tr>
+                <th>
+                    Course Name
+                    @*@Html.DisplayNameFor(model => model.CourseName)*@
 
-        @foreach (var item in Model)
-        {
-            if (item.IsActive == true)
+                </th>
+                <th>
+                    Course Description
+                    @*@Html.DisplayNameFor(model => model.CourseDescription)*@
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>*@
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @*<a href="@Url.Action("Index","Lessons")">*@
-                        @Html.DisplayFor(modelItem => item.CourseId)
-                        @Html.DisplayFor(modelItem => item.CourseName)
-                        @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
-                        <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
+                if (item.IsActive == true)
+                {
+                    <tr>
+                        <td>
+                            @*<a href="@Url.Action("Index","Lessons")">*@
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CourseDescription)
-                    </td>
-                    @*@if (item.IsActive == false && User.IsInRole("HR Admin") ==false)
-                    {*@
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.IsActive)
-                    </td>*@
-                    @*}*@
+                            @*@Html.DisplayFor(modelItem => item.CourseId)*@
+                            @Html.DisplayFor(modelItem => item.CourseName)
 
-                    <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |*@
-                        <a href="" class="EditLink" id="@item.CourseId">Edit</a>
+                            @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
+                            <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
 
-                        @*@Html.ActionLink("Details", "Details", new { id = item.CourseId }) |*@
-                        <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
-                </tr>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseDescription)
+                        </td>
+                        @*@if (item.IsActive == false && User.IsInRole("HR Admin") ==false)
+                        {*@
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.IsActive)
+                        </td>*@
+                        @*}*@
+
+                        <td>
+                            @*@Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |*@
+                            @if (User.IsInRole("HR Admin"))
+                            {
+                                <a href="" class="EditLink" id="@item.CourseId">Edit</a>
+
+                                @*@Html.ActionLink("Details", "Details", new { id = item.CourseId }) |*@
+                                <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
+                            }
+</tr>
+                }
+                if (item.IsActive == false && User.IsInRole("HR Admin"))
+                {
+                    <tr>
+                        <td>
+                            @*<a href="@Url.Action("Index","Lessons")">*@
+                            @Html.DisplayFor(modelItem => item.CourseId)
+                            @Html.DisplayFor(modelItem => item.CourseName)
+                            @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
+                            <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CourseDescription)
+                        </td>
+
+                        <td>
+                           
+                            <a href="" class="EditLink" id="@item.CourseId">Edit</a>
+                            <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
+                            
+
+
+                            @if (item.IsActive == false)
+                            {
+                                //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)
+                                @Ajax.ActionLink("Delete", "AjaxDelete", "Courses", new { id = item.CourseId },
+                                              new AjaxOptions
+                                              {
+                                                  HttpMethod = "POST",
+                                                  Confirm = "Are you sure you want to remove " + item.CourseName + " from Courses?",
+                                                  OnSuccess = "deleteConfirmed"
+                                              });
+                            }
+                            else
+                            {
+                                <span class="myWarning">In Use</span>
+                            }
+                        </td>
+                    </tr>
+                }
             }
-            if (item.IsActive == false && User.IsInRole("HR Admin"))
-            {
-                <tr>
-                    <td>
-                        @*<a href="@Url.Action("Index","Lessons")">*@
-                        @Html.DisplayFor(modelItem => item.CourseId)
-                        @Html.DisplayFor(modelItem => item.CourseName)
-                        @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
-                        <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
 
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CourseDescription)
-                    </td>
-
-                    <td>
-
-                        <a href="" class="EditLink" id="@item.CourseId">Edit</a>
-                        <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
-                        
-                        @if (item.IsActive == false)
-                        {
-                            //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)
-                            @Ajax.ActionLink("Delete", "AjaxDelete", "Courses", new { id = item.CourseId },
-                                          new AjaxOptions
-                                          {
-                                              HttpMethod = "POST",
-                                              Confirm = "Are you sure you want to remove " + item.CourseName + " from Courses?",
-                                              OnSuccess = "deleteConfirmed"
-                                          });
-                        }
-                        else
-                        {
-                            <span class="myWarning">In Use</span>
-                        }
-                    </td>
-                </tr>
-            }
-        }
-
-    </table>
+        </table>
+    </div>
 
     <div id="CourseDetails">
 

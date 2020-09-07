@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity.Migrations;//Added
 using LMSFinalProject.DATA.EF;
 
 namespace LMSFinalProject.UI.MVC.Controllers
@@ -52,13 +53,47 @@ namespace LMSFinalProject.UI.MVC.Controllers
         #region AJAX Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult LessonCreate(Lesson lesson)
+        public JsonResult LessonCreate(Lesson lesson, HttpPostedFileBase pdfUpload)
         {
-            db.Lessons.Add(lesson);
-            db.SaveChanges();
-            return Json(lesson);
+            {
+                if (ModelState.IsValid)
+                {
+                    #region Pdf Upload (Create)
+
+                    string pdfName = "dummypdf.pdf";
+
+                    if (pdfUpload != null)
+                    {
+                        pdfName = pdfUpload.FileName;
+
+                        string ext = pdfName.Substring(pdfName.LastIndexOf("."));
+
+                        string[] goodExts = new string[] { ".pdf" };
+
+                        if (goodExts.Contains(ext.ToLower()))
+                        {
+                            pdfName = Guid.NewGuid() + ext;
+
+                            pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+                        }
+                        else
+                        {
+                            pdfName = "dummypdf.pdf";
+                        }
+
+                    }
+                    lesson.PdfFilename = pdfName;
+                    #endregion
+
+
+                    db.Lessons.Add(lesson);
+                    db.SaveChanges();
+
+                }
+                #endregion
+                return Json(lesson);
+            }
         }
-        #endregion
 
         #region AJAX Edit
         public PartialViewResult LessonEdit(int id)
@@ -69,10 +104,52 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult AjaxEdit(Lesson lesson)
+        public JsonResult AjaxEdit(Lesson lesson, HttpPostedFileBase pdfUpload)
         {
-            db.Entry(lesson).State = EntityState.Modified;
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                #region Pdf Upload (Edit)
+                if (pdfUpload != null)
+                {
+                    string pdfName = "dummypdf.pdf";
+                    pdfName = pdfUpload.FileName;
+                    string ext = pdfName.Substring(pdfName.LastIndexOf("."));
+                    string[] goodExts = new string[] { ".pdf" };
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+
+                        pdfName = Guid.NewGuid() + ext;
+                        pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+
+                        if (lesson.PdfFilename != null && lesson.PdfFilename != "dummypdf.pdf")
+                        {
+                            System.IO.File.Delete(Server.MapPath("~/" + Session["currentPdf"].ToString()));
+                        }
+
+                        lesson.PdfFilename = pdfName;
+                    }
+
+
+                }
+                else
+                {
+                    var pdfs = db.Lessons.ToList();
+                    var test = from l in pdfs
+                               where l.LessonId == lesson.LessonId
+                               select l.PdfFilename;
+
+                    lesson.PdfFilename = test.FirstOrDefault().ToString();
+
+                }
+
+                db.Set<Lesson>().AddOrUpdate(lesson);
+                db.SaveChanges();
+
+                #endregion
+                //    db.Entry(lesson).State = EntityState.Modified;
+                //db.SaveChanges();
+                
+            }
             return Json(lesson);
         }
 
@@ -131,10 +208,37 @@ namespace LMSFinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "LessonId,LessonTitle,CourseId,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson)
+        public ActionResult Create([Bind(Include = "LessonId,LessonTitle,CourseId,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase pdfUpload)
         {
             if (ModelState.IsValid)
             {
+                #region Pdf Upload (Create)
+
+                string pdfName = "dummypdf.pdf";
+
+                if (pdfUpload != null)
+                {
+                    pdfName = pdfUpload.FileName;
+
+                    string ext = pdfName.Substring(pdfName.LastIndexOf("."));
+
+                    string[] goodExts = new string[] { ".pdf" };
+
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+                        pdfName = Guid.NewGuid() + ext;
+
+                        pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+                    }
+                    else
+                    {
+                        pdfName = "dummypdf.pdf";
+                    }
+                   
+                }
+                lesson.PdfFilename = pdfName;
+                #endregion
+
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -165,12 +269,51 @@ namespace LMSFinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "LessonId,LessonTitle,CourseId,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson)
+        public ActionResult Edit([Bind(Include = "LessonId,LessonTitle,CourseId,Introduction,VideoURL,PdfFilename,IsActive")] Lesson lesson, HttpPostedFileBase pdfUpload)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lesson).State = EntityState.Modified;
+                #region Pdf Upload (Edit)
+                if (pdfUpload != null)
+                {
+                    string pdfName = "dummypdf.pdf";
+                    pdfName = pdfUpload.FileName;
+                    string ext = pdfName.Substring(pdfName.LastIndexOf("."));
+                    string[] goodExts = new string[] { ".pdf" };
+                    if (goodExts.Contains(ext.ToLower()))
+                    {
+
+                        pdfName = Guid.NewGuid() + ext;
+                        pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+
+                        if (lesson.PdfFilename != null && lesson.PdfFilename != "dummypdf.pdf")
+                        {
+                            System.IO.File.Delete(Server.MapPath("~/" + Session["currentPdf"].ToString()));
+                        }
+
+                        lesson.PdfFilename = pdfName;
+                    }
+
+
+                }
+                else
+                {
+                    var pdfs = db.Lessons.ToList();
+                    var test = from l in pdfs
+                               where l.LessonId == lesson.LessonId
+                               select l.PdfFilename;
+
+                    lesson.PdfFilename = test.FirstOrDefault().ToString();
+                    
+                }
+
+                db.Set<Lesson>().AddOrUpdate(lesson);
                 db.SaveChanges();
+
+                #endregion
+
+                //db.Entry(lesson).State = EntityState.Modified;
+                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);

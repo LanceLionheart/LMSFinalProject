@@ -4,57 +4,61 @@
     ViewBag.Title = "Lessons Viewed";
 }
 
-<h2 style="padding-top:3em">@ViewBag.Title</h2>
+<h2 style="padding-top: 3em; padding-left:1em"">@ViewBag.Title</h2>
 
-<p>
+<p style="padding-left:2em">
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserDetail.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserDetail.LastName)
-        </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
-        </th>
+<div style="padding-left:2em">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserDetail.LastName)
+            </th>
 
-        <th>
-            @Html.DisplayNameFor(model => model.DateViewed)
-        </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
+            </th>
 
-
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserDetail.LastName)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.Lesson.LessonTitle)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.DateViewed)
-        </td>
+            <th>
+                @Html.DisplayNameFor(model => model.DateViewed)
+            </th>
 
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.LessonViewId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.LessonViewId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.LessonViewId })
-        </td>
-    </tr>
-}
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail.LastName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Lesson.LessonTitle)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateViewed)
+                </td>
+
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonViewId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.LessonViewId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.LessonViewId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

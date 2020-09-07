@@ -21,9 +21,9 @@
     <ul style="padding-bottom:1.5em">
         @foreach (LessonView le in ViewBag.OrderLesson)  //Home Controller
         {
-            <li style="color:black;">
-                @le.UserDetail.FirstName &mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{le.DateViewed.Date}")
-            </li>
+        <li style="color:black;">
+            @le.UserDetail.FirstName @le.UserDetail.LastName&mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{0:d}{le.DateViewed.Date}")
+        </li>
         }
     </ul>
 
@@ -31,9 +31,9 @@
     <ul style="padding-bottom:1.5em">
         @foreach (CourseCompletion cou in ViewBag.OrderCourse)
         {
-            <li>
-                @cou.UserDetail.FirstName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
-            </li>
+        <li>
+            @cou.UserDetail.FirstName  @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+        </li>
         }
 
         @*@Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -46,7 +46,7 @@
     {
     <ul>
         <li>
-            @ad.UserDetail.FirstName  &mdash; <strong>@string.Format($"{DateTime.Now}")</strong>
+            @ad.UserDetail.FirstName @ad.UserDetail.LastName  &mdash; <strong>@string.Format($"{ad.DateCompleted}")</strong>
         </li>
     </ul>
     }

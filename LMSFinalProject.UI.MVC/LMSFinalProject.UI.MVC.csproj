@@ -248,12 +248,17 @@
     <Content Include="Content\img\core-img\trophy.png" />
     <Content Include="Content\img\core-img\video-camera.png" />
     <Content Include="Content\img\core-img\work-progress.png" />
+    <Content Include="Content\img\dinofavicon2.ico" />
     <Content Include="Content\img\dinofootprint.jpg" />
     <Content Include="Content\img\dinofootprintparent.jpg" />
     <Content Include="Content\img\dinosauricon.png" />
     <Content Include="Content\img\dinosauricon2.png" />
     <Content Include="Content\img\dinosauricon3.png" />
+    <Content Include="Content\img\footprint2.png" />
+    <Content Include="Content\img\footprintfavicon.png" />
+    <Content Include="Content\img\keepitup.png" />
     <Content Include="Content\img\lightbuildimage.jpg" />
+    <Content Include="Content\img\lightbuildimage2.jpg" />
     <Content Include="Content\img\nodes.jpg" />
     <Content Include="Content\img\portfolio-img\1.jpg" />
     <Content Include="Content\img\portfolio-img\10.jpg" />
@@ -368,6 +373,9 @@
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="App_Data\PDF\samplepdf.pdf" />
+    <Content Include="App_Data\PDF\dummypdf.pdf" />
+    <Content Include="dummypdf.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -473,9 +481,7 @@
     <Content Include="Views\Home\UntypedViewEmployee.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

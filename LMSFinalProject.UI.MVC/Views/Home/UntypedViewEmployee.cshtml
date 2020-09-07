@@ -7,26 +7,39 @@
 @using Microsoft.AspNet.Identity
 
 @{
-    ViewBag.Title = "Your Course Progress. (Six courses required for Annual Training)";
+    ViewBag.Title = "Course List (Six required for Annual Training Completion)";
 }
 
 <div style="padding-left:3em; padding-bottom: 2em">
     <h2 style="padding-top:4em">@ViewBag.Title</h2>
 
-    @foreach (CourseCompletion cou in ViewBag.EmpCourse)
-    {
-        <ul>
+    @*@foreach (CourseCompletion cou in ViewBag.EmpCourse)
+        {
+            <ul>
+                <li>
+                    @cou.UserDetail.FirstName @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+                </li>
+            </ul>
+        }*@
+
+    @*<h2></h2>*@
+
+    @foreach (Course col in ViewBag.EmpNoCourse)
+    {<ul>
             <li>
-                @cou.UserDetail.FirstName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+                @col.CourseName @*&mdash; <strong>@string.Format($"{coul.Course.CourseName}")</strong>*@
             </li>
         </ul>
     }
 
-    <h2>Incomplete Courses</h2>
-    @foreach (CourseCompletion coul in ViewBag.EmpNoCourse)
-    {<ul>
+    <h2>Completed</h2>
+    @foreach (CourseCompletion con in ViewBag.EmpCourse)
+    {
+        <ul style="font-size:20px">
             <li>
-                @coul.UserDetail.FirstName &mdash; <strong>@string.Format($"{coul.Course.CourseName}")</strong>
+                <strong> @con.Course.CourseName <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{con.UserDetail.FirstName} {con.UserDetail.LastName}") &mdash; @string.Format($"{con.DateCompleted}")
+
+            </li>
         </ul>
     }
 </div>

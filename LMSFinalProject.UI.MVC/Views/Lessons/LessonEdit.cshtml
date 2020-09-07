@@ -22,7 +22,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -44,11 +45,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
-            </div>
+            <img src="~/@Model.PdfFilename" title="@Model.PdfFilename" alt="@Model.PdfFilename" /><br />
+            <input type="file" name="pdfUpload" />
+            <br />
+            @*@Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
+        </div>*@
         </div>
 
         <div class="form-group">
@@ -90,7 +94,7 @@
         $('#MessageContent').html("<div class='alert-info'>Please wait...</div>");
         //call to Ajax
         $.ajax({
-            //Call the POST CourseCreate Action
+            //Call the POST LessonCreate Action
             url: "@Url.Action("AjaxEdit", "Lessons")",
             type: "POST",
         //serialized form data

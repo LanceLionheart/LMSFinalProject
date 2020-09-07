@@ -7,6 +7,10 @@ using LMSFinalProject.DATA.EF;
 using System.Net.Mail;
 using System.Net;
 using LMSFinalProject.Models;
+using Microsoft.AspNet.Identity; //Added these two
+using Microsoft.AspNet.Identity.Owin;
+using System.Data;
+using System.Data.Entity;
 
 namespace LMSFinalProject.UI.MVC.Controllers
 {
@@ -61,13 +65,26 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
 
         //Employee Course Completed View
-        public ActionResult UntypedViewEmployee()
+        public ActionResult UntypedViewEmployee(int? id)
         {
-            //Courses completed by employees
-            var empCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null);
 
-            //Courses not completed by employees
-            var empnoCourse = db.CourseCompletions.Where(en => en.CourseId != en.CourseId);
+            LMSFinalEntities1 db = new LMSFinalEntities1();
+
+            Lesson lesson = db.Lessons.Find(id);
+
+            string userID = User.Identity.GetUserId();
+
+            
+
+            //Courses completed by employees (Check mark next to them)
+            var empCourse = db.CourseCompletions.Where(oc => oc.UserId == userID);
+
+
+            //variable to relate courses not complete (Experimenting)
+            //var alldone = db.LessonViews.Where(all => all.UserDetail.UserId == userID);
+
+            //All Active Courses 
+            var empnoCourse = db.Courses.Where(en => en.CourseId != null && en.IsActive == true);
 
 
             //var empnoCourse = db.CourseCompletions.Where(en => en.UserId != en.UserDetail.UserId);

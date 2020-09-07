@@ -36,7 +36,8 @@ namespace LMSFinalProject.DATA.EF.Metadata
         //public int CourseId { get; set; }
 
         [Display(Name = "Completion Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "* Completion Date is required")]
         public System.DateTime DateCompleted { get; set; }
     }
@@ -83,7 +84,7 @@ namespace LMSFinalProject.DATA.EF.Metadata
         //public int LessonId { get; set; }
 
         [Display(Name = "Date Viewed")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "* Date Viewed is required")]
         public System.DateTime DateViewed { get; set; }
     }

@@ -212,7 +212,13 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 foreach (var Lessonitem in viewedlessons)
                 {
                     if (id == Lessonitem.LessonId)
+                    {
+                        hasviewed = false;
+                    }
+                    else
+                    {
                         hasviewed = true;
+                    }
                 }
                 if (hasviewed == true)
                 {
@@ -272,7 +278,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     cc.UserId = userID;
                     //cc.CourseCompletionId = id;
                     cc.CourseId = lesson.CourseId;
-
                     db.CourseCompletions.Add(cc);
                     db.SaveChanges();
 
