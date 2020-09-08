@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity.Migrations;//Added
 using LMSFinalProject.DATA.EF;
+using LMSFinalProject.UI.MVC.Models;//added
 
 namespace LMSFinalProject.UI.MVC.Controllers
 {
@@ -53,7 +54,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
         #region AJAX Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult LessonCreate(Lesson lesson, HttpPostedFileBase pdfUpload)
+        public JsonResult LessonCreate(Lesson lesson, HttpPostedFileBase pdfUpload) //Do I need binds here?
         {
             {
                 if (ModelState.IsValid)
@@ -74,7 +75,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                         {
                             pdfName = Guid.NewGuid() + ext;
 
-                            pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+                            pdfUpload.SaveAs(Server.MapPath("~/App_Data/PDF" + pdfName));
                         }
                         else
                         {

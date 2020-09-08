@@ -22,6 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <!--When editing, remove all data from this editor box-->
                 @Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })
                 @*@Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })

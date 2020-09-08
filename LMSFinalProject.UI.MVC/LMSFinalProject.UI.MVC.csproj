@@ -211,6 +211,7 @@
     <Content Include="Content\img\bg-img\headpiece.png" />
     <Content Include="Content\img\bg-img\sub-1.jpg" />
     <Content Include="Content\img\bg-img\welcome-bg.png" />
+    <Content Include="Content\img\blackdinofoot.png" />
     <Content Include="Content\img\blog-img\1.jpg" />
     <Content Include="Content\img\blog-img\2.jpg" />
     <Content Include="Content\img\blog-img\3.jpg" />
@@ -259,6 +260,7 @@
     <Content Include="Content\img\keepitup.png" />
     <Content Include="Content\img\lightbuildimage.jpg" />
     <Content Include="Content\img\lightbuildimage2.jpg" />
+    <Content Include="Content\img\littleallofav.png" />
     <Content Include="Content\img\nodes.jpg" />
     <Content Include="Content\img\portfolio-img\1.jpg" />
     <Content Include="Content\img\portfolio-img\10.jpg" />
@@ -274,6 +276,8 @@
     <Content Include="Content\img\portfolio-img\9.jpg" />
     <Content Include="Content\img\skillsimage.jpg" />
     <Content Include="Content\img\techimage.jpg" />
+    <Content Include="Content\img\thedinoprints.png" />
+    <Content Include="Content\img\thefoot.png" />
     <Content Include="Content\img\trexbackground.jpg" />
     <Content Include="Content\js\active.js" />
     <Content Include="Content\js\bootstrap.min.js" />
