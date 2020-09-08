@@ -38,20 +38,20 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Introduction)
                 </td>
-                @if (item.VideoURL != null)
-                {
+                @*@if (item.VideoURL != null)
+                {*@
                 <td>
-                    <a href="@Html.DisplayFor(modelItem => item.VideoURL)">Video Link</a>
+                    <a href="@Html.DisplayFor(modelItem => item.VideoURL)" target="_blank">Video Link</a>
                     @*<embed src="@Html.DisplayFor(modelItem => item.VideoURL)" width="560px" height="340px" />*@
                 </td>
-                }
+                    @*//}*@
 
-                @if (item.VideoURL != null)
-                {
+                @*@if (item.VideoURL != null)
+                {*@
                     <td>
-                        <embed src="@Html.DisplayFor(modelItem => item.PdfFilename)" width="600px" height="800px" />
+                        <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)" target="_blank">PDF Link</a>
                     </td>
-                }
+                @*}*@
                 @*<td>
                         @Html.DisplayFor(modelItem => item.IsActive)
                     </td>*@

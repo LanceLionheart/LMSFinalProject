@@ -207,20 +207,16 @@ namespace LMSFinalProject.UI.MVC.Controllers
             {//START OF BIG FUNCTION
 
                 var viewedlessons = db.LessonViews.Where(l => l.UserId == userID);
-                bool hasviewed = true;
+                bool hasviewed = false;
 
                 foreach (var Lessonitem in viewedlessons)
                 {
                     if (id == Lessonitem.LessonId)
                     {
-                        hasviewed = false;
-                    }
-                    else
-                    {
                         hasviewed = true;
                     }
                 }
-                if (hasviewed == true)
+                if (hasviewed == false)
                 {
                     LessonView lv = new LessonView();
                     lv.DateViewed = DateTime.Now;
@@ -243,12 +239,12 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 var coursecompleted = db.CourseCompletions.Where(cou => cou.UserId == userID);
 
                 //bool for checking if all lessons done
-                bool coursecomplete = true;
+                bool coursecomplete = false;
 
                 //variable to find total number of lessons related to specific course
-                var totallesson = db.Lessons.Count(cl => cl.CourseId == cl.LessonId);
+                var totallesson = db.Lessons.Where(cl => cl.CourseId == lesson.CourseId).Count();
 
-                //variable to grab each LessonID related to course
+                //variable to grab each LessonID related to course      
                 var courselesson = db.Lessons.Where(cl => cl.CourseId == lesson.CourseId).Select(l => l.LessonId);
 
                 //variable that keeps count of employee-viewed lessons // If this equals totallesson, Create CC
@@ -259,11 +255,11 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     foreach (var lessonitem in courselesson)
                     {
                         if (lessonview.LessonId == lessonitem)
-
+                        {
                             employeeviewedlessons++;
+                        }
                     }
                 }
-
 
                 foreach (var comp in coursecompleted)
                 {
@@ -271,7 +267,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
                         coursecomplete = true;
                 }
 
-                if (employeeviewedlessons == totallesson && coursecomplete == true)
+                if (employeeviewedlessons == totallesson && coursecomplete == false)
                 {
                     CourseCompletion cc = new CourseCompletion();
                     cc.DateCompleted = DateTime.Now;
@@ -280,6 +276,36 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     cc.CourseId = lesson.CourseId;
                     db.CourseCompletions.Add(cc);
                     db.SaveChanges();
+
+
+                    //Emails to inform Manager of single Course Completion
+                    MailMessage msg = new MailMessage(
+                   "admin@lancevogel.com",
+                   "lzvogel@outlook.com",
+                    "Employee:" + userID + "has completed a course:",
+                    "Employee:" + userID + "has completed Course:" + coursecompleted);
+
+                    msg.IsBodyHtml = true;
+                    msg.Priority = MailPriority.High;
+
+                    //msg.ReplyToList.Add(cvm.Email);
+                    //msg.CC.Add("metalsquidlance@gmail.com");
+
+                    SmtpClient client = new SmtpClient("mail.lancevogel.com");
+                    client.Credentials = new NetworkCredential("admin@lancevogel.com", "Turtle333!");
+
+                    client.Port = 8889;
+
+                    try
+                    {
+                        client.Send(msg);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        ViewBag.ErrorMessage = "There was a problem . . . </br>" + ex.StackTrace;
+
+                        return View("Index");
+                    }
 
                 }
 

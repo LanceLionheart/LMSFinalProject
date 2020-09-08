@@ -44,11 +44,15 @@
     <h3>Completed Annual Training</h3>
     @foreach (CourseCompletion ad in ViewBag.AnnualDone)
     {
+        if (ad.CourseId == 6)
+        {
     <ul>
         <li>
             @ad.UserDetail.FirstName @ad.UserDetail.LastName  &mdash; <strong>@string.Format($"{ad.DateCompleted}")</strong>
         </li>
     </ul>
+        }
+
     }
 </div>
 

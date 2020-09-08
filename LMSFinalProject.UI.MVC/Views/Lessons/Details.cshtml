@@ -4,12 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2 style="padding-left:1em; padding-top:4em">@ViewBag.Title</h2>
 
 <div>
-    <h4>Lesson</h4>
+    <h4 style="padding-left:1.4em">Lesson</h4>
     <hr />
-    <dl class="dl-horizontal">
+    <dl class="dl-horizontal" style="padding-left:2em">
         <dt>
             @Html.DisplayNameFor(model => model.LessonTitle)
         </dt>
@@ -31,16 +31,17 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.VideoURL)
+            <a href="@Html.DisplayFor(model => model.VideoURL)" target="_blank">@Html.DisplayFor(model => model.VideoURL)</a>
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PdfFilename)
+          @Html.DisplayNameFor(model => model.PdfFilename)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PdfFilename)
+            <a href="~/Content/resources/@Model.PdfFilename" target="_blank">PDF Link</a>
         </dd>
+
 
         <dt>
             @Html.DisplayNameFor(model => model.IsActive)
@@ -60,7 +61,7 @@
 
     </dl>
 </div>
-<p>
+<p style="padding-left:2.3em">
     @Html.ActionLink("Edit", "Edit", new { id = Model.LessonId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

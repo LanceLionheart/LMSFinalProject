@@ -1,7 +1,7 @@
 ﻿@model LMSFinalProject.DATA.EF.Lesson
 
 
-@using (Html.BeginForm("", "", FormMethod.Post, new { id = "LessonEditForm" }))
+@using (Html.BeginForm("AjaxEdit", "Lessons", FormMethod.Post, new { id = "LessonEditForm", @enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 
@@ -46,21 +46,24 @@
         </div>
 
         <div class="form-group">
-            <img src="~/@Model.PdfFilename" title="@Model.PdfFilename" alt="@Model.PdfFilename" /><br />
-            <input type="file" name="pdfUpload" />
-            <br />
+            @Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<img src="~/@Model.PdfFilename" title="@Model.PdfFilename" alt="@Model.PdfFilename" /><br />*@
+                <input type="file" class="form-control" accept=".pdf" id="pdfUpload" />
+                <br />
             @*@Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
         </div>*@
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsActive)
+                    @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -86,6 +89,7 @@
     //Submit the form
     //Submit the form
     $("#LessonEditForm").submit(function (e) {
+        debugger;
         //Serialize (package the form data for transport as an object)
         //Create an array of objects with a name and value
         var formData = $(this).serializeArray();

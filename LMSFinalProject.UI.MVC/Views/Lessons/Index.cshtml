@@ -22,7 +22,7 @@
     </p>*@
 
 
-<table class="table" id="LessonsTable" style="padding-left:2em">
+<table class="table" id="LessonsTable" style="padding-left:2em;">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.LessonTitle)
@@ -58,7 +58,7 @@
                 @Html.DisplayFor(modelItem => item.VideoURL)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PdfFilename)
+                <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)">@Html.DisplayFor(modelItem => item.PdfFilename)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)
@@ -67,10 +67,10 @@
                 @Html.DisplayFor(modelItem => item.Course.CourseName)
             </td>
             <td>
-                @*@Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |*@
-                <a href="" class="EditLink" id="@item.LessonId">Edit</a>
-                @*@Html.ActionLink("Details", "Details", new { id=item.LessonId }) |*@
-                <a href="" class="DetailsLink" id="@item.LessonId">Details</a>
+                @Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |
+                <a href="" class="EditLink" id="@item.LessonId">AJAX Edit</a>
+                @Html.ActionLink("Details", "Details", new { id=item.LessonId }) |
+                <a href="" class="DetailsLink" id="@item.LessonId">AJAX Details</a>
 
                 @if (item.IsActive == false)
                 {

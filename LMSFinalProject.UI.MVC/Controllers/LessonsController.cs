@@ -215,40 +215,44 @@ namespace LMSFinalProject.UI.MVC.Controllers
             {
                 #region Pdf Upload (Create)
 
-                string pdfName = "dummypdf.pdf";
+                //string pdfName = "dummypdf.pdf";
 
                 if (pdfUpload != null)
                 {
-                    pdfName = pdfUpload.FileName;
+                    string pdfName = pdfUpload.FileName;
+
+                    //pdfName = pdfUpload.FileName;
 
                     string ext = pdfName.Substring(pdfName.LastIndexOf("."));
 
                     string[] goodExts = new string[] { ".pdf" };
 
-                    if (goodExts.Contains(ext.ToLower()))
+                    if (goodExts.Contains(ext))
                     {
-                        pdfName = Guid.NewGuid() + ext;
+                        //pdfName = Guid.NewGuid() + ext;
 
-                        pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+                        pdfUpload.SaveAs(Server.MapPath("~/Content/resources/" + pdfName));
+                        lesson.PdfFilename = pdfName;
                     }
                     else
                     {
-                        pdfName = "dummypdf.pdf";
+                        ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);
+                        ViewBag.ErrorMessage = "* Only PDF files are allowed";
+                        return View(lesson);
                     }
-                   
-                }
-                lesson.PdfFilename = pdfName;
-                #endregion
 
+
+                }
                 db.Lessons.Add(lesson);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+              
+
+
             }
 
-            ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);
-            return View(lesson);
+            return RedirectToAction("Index");
         }
-
+        #endregion
         // GET: Lessons/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -277,36 +281,35 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 #region Pdf Upload (Edit)
                 if (pdfUpload != null)
                 {
-                    string pdfName = "dummypdf.pdf";
+                    string pdfName = pdfUpload.FileName;
                     pdfName = pdfUpload.FileName;
                     string ext = pdfName.Substring(pdfName.LastIndexOf("."));
                     string[] goodExts = new string[] { ".pdf" };
                     if (goodExts.Contains(ext.ToLower()))
                     {
 
-                        pdfName = Guid.NewGuid() + ext;
-                        pdfUpload.SaveAs(Server.MapPath("~/" + pdfName));
+                        //pdfName = Guid.NewGuid() + ext;
+                        pdfUpload.SaveAs(Server.MapPath("~/Content/resources/" + pdfName));
 
-                        if (lesson.PdfFilename != null && lesson.PdfFilename != "dummypdf.pdf")
+                        if (lesson.PdfFilename != null && lesson.PdfFilename != pdfName)//Error here
                         {
-                            System.IO.File.Delete(Server.MapPath("~/" + Session["currentPdf"].ToString()));
+                            System.IO.File.Delete(Server.MapPath("~/Content/resources/" + lesson.PdfFilename));
                         }
 
                         lesson.PdfFilename = pdfName;
                     }
 
-
                 }
-                else
-                {
-                    var pdfs = db.Lessons.ToList();
-                    var test = from l in pdfs
-                               where l.LessonId == lesson.LessonId
-                               select l.PdfFilename;
+                //else
+                //{
+                //    var pdfs = db.Lessons.ToList();
+                //    var test = from l in pdfs
+                //               where l.LessonId == lesson.LessonId
+                //               select l.PdfFilename;
 
-                    lesson.PdfFilename = test.FirstOrDefault().ToString();
+                //    lesson.PdfFilename = test.FirstOrDefault().ToString();
                     
-                }
+                //}
 
                 db.Set<Lesson>().AddOrUpdate(lesson);
                 db.SaveChanges();

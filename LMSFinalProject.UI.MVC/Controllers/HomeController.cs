@@ -46,6 +46,10 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
         public ActionResult UntypedView()
         {
+
+            LMSFinalEntities1 db = new LMSFinalEntities1();
+
+            string userID = User.Identity.GetUserId();
             //Linq     Order Information on LessonsViewed and CoursesCompleted
 
             //WORKS!!
@@ -54,7 +58,11 @@ namespace LMSFinalProject.UI.MVC.Controllers
             var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null).OrderBy(oc =>oc.UserDetail.LastName);
 
             //When employee has finished 6 courses, they are added to Annual Training Complete List
-            var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6).OrderBy(ad => ad.UserDetail.LastName);
+
+            //Previous
+            //var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6).OrderBy(ad => ad.UserDetail.LastName);
+
+            var annualDone = db.CourseCompletions.Where(oo => oo.UserId == userID);//pasted from email section
 
             ViewBag.OrderLesson = orderLesson;
             ViewBag.OrderCourse = orderCourse;
