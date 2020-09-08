@@ -87,6 +87,9 @@ namespace LMSFinalProject.UI.MVC.Controllers
             //Courses completed by employees (Check mark next to them)
             var empCourse = db.CourseCompletions.Where(oc => oc.UserId == userID);
 
+            //Lessons completed by employees (Check mark next to them)
+            var empLess = db.LessonViews.Where(oc => oc.UserId == userID);
+
 
             //variable to relate courses not complete (Experimenting)
             //var alldone = db.LessonViews.Where(all => all.UserDetail.UserId == userID);
@@ -97,6 +100,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
             //var empnoCourse = db.CourseCompletions.Where(en => en.UserId != en.UserDetail.UserId);
 
+            ViewBag.EmpLess = empLess;
             ViewBag.EmpCourse = empCourse;
             ViewBag.EmpNoCourse = empnoCourse;
 

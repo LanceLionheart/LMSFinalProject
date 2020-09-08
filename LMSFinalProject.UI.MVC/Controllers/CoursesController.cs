@@ -367,7 +367,17 @@ namespace LMSFinalProject.UI.MVC.Controllers
         }
 
 
+        public ActionResult LessonDone(int? id)
+        {
 
+
+            //Use if you want to have a Lesson confirmed
+
+
+
+
+            return View();
+        }
 
         //public ActionResult YouTubeUrl()
         //{

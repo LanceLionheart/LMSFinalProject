@@ -26,13 +26,13 @@
 
     @foreach (Course col in ViewBag.EmpNoCourse)
     {<ul>
-            <li>
+            <li style="font-weight:500">
                 @col.CourseName @*&mdash; <strong>@string.Format($"{coul.Course.CourseName}")</strong>*@
             </li>
         </ul>
     }
 
-    <h2>Completed</h2>
+    <h2>Courses Completed</h2>
     @foreach (CourseCompletion con in ViewBag.EmpCourse)
     {
         <ul style="font-size:20px">
@@ -40,6 +40,18 @@
                 <strong> @con.Course.CourseName <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{con.UserDetail.FirstName} {con.UserDetail.LastName}") &mdash; @string.Format($"{con.DateCompleted}")
 
             </li>
+        </ul>
+    }
+
+
+    <h3>Lessons Completed</h3>
+    @foreach (LessonView les in ViewBag.EmpLess)
+    {
+        <ul style="font-size: 14px">
+            <li>
+               <strong> @les.Lesson.LessonTitle <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{les.UserDetail.FirstName} {les.UserDetail.LastName}") &mdash; @string.Format($"{les.DateViewed}")
+            </li>
+
         </ul>
     }
 </div>

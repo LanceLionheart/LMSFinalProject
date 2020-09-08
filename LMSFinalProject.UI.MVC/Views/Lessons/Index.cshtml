@@ -55,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.Introduction)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.VideoURL)
+                <a href="@Html.DisplayFor(modelItem => item.VideoURL)" target="_blank">@Html.DisplayFor(modelItem => item.VideoURL)</a>
             </td>
             <td>
-                <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)">@Html.DisplayFor(modelItem => item.PdfFilename)</a>
+                <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)" target="_blank">@Html.DisplayFor(modelItem => item.PdfFilename)</a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IsActive)

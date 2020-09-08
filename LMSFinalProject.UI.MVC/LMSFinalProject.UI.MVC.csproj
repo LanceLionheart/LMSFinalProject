@@ -491,6 +491,7 @@
     <Content Include="Views\Home\UntypedView.cshtml" />
     <Content Include="Views\Home\UntypedViewEmployee.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
+    <Content Include="Views\Courses\LessonDone.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
