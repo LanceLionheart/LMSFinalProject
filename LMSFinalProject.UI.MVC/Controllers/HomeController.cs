@@ -49,12 +49,12 @@ namespace LMSFinalProject.UI.MVC.Controllers
             //Linq     Order Information on LessonsViewed and CoursesCompleted
 
             //WORKS!!
-            var orderLesson = db.LessonViews.Where(ol => ol.DateViewed != null);
+            var orderLesson = db.LessonViews.Where(ol => ol.DateViewed != null).OrderBy(ol => ol.UserDetail.LastName);
 
-            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null);
+            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null).OrderBy(oc =>oc.UserDetail.LastName);
 
             //When employee has finished 6 courses, they are added to Annual Training Complete List
-            var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6);
+            var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6).OrderBy(ad => ad.UserDetail.LastName);
 
             ViewBag.OrderLesson = orderLesson;
             ViewBag.OrderCourse = orderCourse;

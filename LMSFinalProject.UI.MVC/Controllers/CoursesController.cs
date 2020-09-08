@@ -290,10 +290,13 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 //bool alldone = true;
                 //When UserIds in CourseCompletion match current logged in userId
                 //var trainingDone = db.CourseCompletions.Where(oo => oo.UserId == userID);
+                //var fname = db.UserDetails.Where(fn => fn.UserId == userID); get name for userid in email below
+
+
 
                 //This works. When the UserIds in CourseCompletion that match current logged in userId = 6, email annual.
                 var trainingsDone = db.CourseCompletions.Count(oo => oo.UserId == userID);
-
+                
                
                 if (trainingsDone == 6) //was if (trainingDone != null). Emailed everytime (might be good for single course)
                 {
