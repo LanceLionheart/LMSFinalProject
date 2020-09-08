@@ -22,7 +22,7 @@
         @foreach (LessonView le in ViewBag.OrderLesson)  //Home Controller
         {
         <li style="color:black;">
-            @le.UserDetail.FirstName @le.UserDetail.LastName&mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{0:d}{le.DateViewed.Date}")
+            @le.UserDetail.FirstName @le.UserDetail.LastName&mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{le.DateViewed.Date}")
         </li>
         }
     </ul>

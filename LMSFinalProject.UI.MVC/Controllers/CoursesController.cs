@@ -283,16 +283,19 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
                 }
 
-                //Make sure this entire function is saving under one person)
-                //Courses Done, Now Email Manager
-                var trainingDone = db.CourseCompletions.Where(oo => oo.CourseId == 6);
-
                 //var fname = db.UserDetails.Where(f => f.FirstName == userID);
                 //foreach (var finished in db.CourseCompletions.Where(oo => oo.CourseCompletionId == 6))
+                //Make sure this entire function is saving under one person)
+                //Courses Done, Now Email Manager
+                //bool alldone = true;
+                //When UserIds in CourseCompletion match current logged in userId
+                //var trainingDone = db.CourseCompletions.Where(oo => oo.UserId == userID);
 
-               bool alldone = true;
+                //This works. When the UserIds in CourseCompletion that match current logged in userId = 6, email annual.
+                var trainingsDone = db.CourseCompletions.Count(oo => oo.UserId == userID);
 
-                if (trainingDone != null)
+               
+                if (trainingsDone == 6) //was if (trainingDone != null). Emailed everytime (might be good for single course)
                 {
 
                     MailMessage msg = new MailMessage(
