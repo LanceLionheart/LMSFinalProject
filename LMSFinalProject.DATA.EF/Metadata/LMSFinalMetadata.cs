@@ -37,7 +37,7 @@ namespace LMSFinalProject.DATA.EF.Metadata
 
         [Display(Name = "Completion Date")]
         //[DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MMM/yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "* Completion Date is required")]
         public System.DateTime DateCompleted { get; set; }
     }

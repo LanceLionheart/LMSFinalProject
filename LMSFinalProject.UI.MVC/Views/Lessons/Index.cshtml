@@ -4,7 +4,7 @@
     ViewBag.Title = "Lessons";
 }
 
-<h2 style="padding-top: 3em; padding-left:1em">@ViewBag.Title</h2>
+<h2 style="padding-top: 3.5em; padding-left:1.2em">@ViewBag.Title</h2>
 
 <!--AJAX Create Form-->
 <div id="LessonCreate">
@@ -12,79 +12,83 @@
 </div>
 
 
-<button id="toggleLessonCreate" class="btn btn-primary">
-    Create Lesson
-</button>
+<div style="padding-left:2em; padding-bottom: 1em">
+    <button id="toggleLessonCreate" class="btn btn-primary">
+        Create Lesson
+    </button>
+</div>
 
-<table class="table" id="LessonsTable" style="padding-left:2em;">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LessonTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Introduction)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.VideoURL)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PdfFilename)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsActive)
-        </th>       
-        <th>
-            @Html.DisplayNameFor(model => model.Course.CourseName)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>         
-            <td>
-                @Html.DisplayFor(modelItem => item.LessonTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Introduction)
-            </td>
-            <td>
-                <a href="@Html.DisplayFor(modelItem => item.VideoURL)" target="_blank">@Html.DisplayFor(modelItem => item.VideoURL)</a>
-            </td>
-            <td>
-                <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)" target="_blank">@Html.DisplayFor(modelItem => item.PdfFilename)</a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Course.CourseName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.LessonId }) |
-                <a href="" class="EditLink" id="@item.LessonId">AJAX Edit</a>
-                @Html.ActionLink("Details", "Details", new { id=item.LessonId }) |
-                <a href="" class="DetailsLink" id="@item.LessonId">AJAX Details</a>
-
-                @if (item.IsActive == false)
-                {
-                    @Ajax.ActionLink("Delete", "AjaxDelete", "Lessons", new { id = item.LessonId },
-                                  new AjaxOptions
-                                  {
-                                      HttpMethod = "POST",
-                                      Confirm = "Are you sure you want to remove " + item.LessonTitle + " from Lessons?",
-                                      OnSuccess = "deleteConfirmed"
-                                  });
-                }
-                else
-                {
-                    <span class="myWarning">In Use</span>
-                }
-            </td>
+<div style="padding-left:2em">
+    <table class="table" id="LessonsTable" style="width: 95%; font-weight:500">
+        <tr>
+            <th>
+               Lesson Title
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Introduction)
+            </th>
+            <th>
+                Video URL
+            </th>
+            <th>
+                PDF Filename
+            </th>
+            <th>
+                Active
+            </th>
+            <th>
+                Course Name
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LessonTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Introduction)
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.VideoURL)" target="_blank">@Html.DisplayFor(modelItem => item.VideoURL)</a>
+                </td>
+                <td>
+                    <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)" target="_blank">@Html.DisplayFor(modelItem => item.PdfFilename)</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Course.CourseName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) 
+                    @*<a href="" class="EditLink" id="@item.LessonId">AJAX Edit</a>*@
+                    @Html.ActionLink("Details", "Details", new { id = item.LessonId }) 
+                    @*<a href="" class="DetailsLink" id="@item.LessonId">AJAX Details</a>*@
+
+                    @if (item.IsActive == false)
+                    {
+                        @Ajax.ActionLink("Delete", "AjaxDelete", "Lessons", new { id = item.LessonId },
+                                      new AjaxOptions
+                                      {
+                                          HttpMethod = "POST",
+                                          Confirm = "Are you sure you want to remove " + item.LessonTitle + " from Lessons?",
+                                          OnSuccess = "deleteConfirmed"
+                                      });
+                    }
+                    else
+                    {
+                        <span class="myWarning">In Use</span>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 
 
 <div id="LessonDetails"></div>

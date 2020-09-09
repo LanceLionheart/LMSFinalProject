@@ -17,24 +17,6 @@
     <h4>CourseCompletion</h4>
     <hr />
 
-    <!--****************************Trying to auto grab current logged-in person for Completed Course***********************************-->
-    @*@if (Request.IsAuthenticated)
-    {
-        LMSFinalEntities1 db = new LMSFinalEntities1();
-
-        string userID = User.Identity.GetUserId();
-
-        UserDetail currentUser = db.UserDetails.Where(ud => ud.UserId == userID).FirstOrDefault();
-
-        string userFN = "Guest";
-
-        if (currentUser != null)
-        {
-            userFN = currentUser.FirstName;
-        }
-    }*@
-        <!--******************************************************************************-->
-
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

@@ -4,28 +4,26 @@
     ViewBag.Title = "Lessons Viewed";
 }
 
-<h2 style="padding-top: 3em; padding-left:1em"">@ViewBag.Title</h2>
+<h2 style="padding-top: 3.5em; padding-left:1em"">@ViewBag.Title</h2>
 
-<p style="padding-left:2em">
-    @Html.ActionLink("Create New", "Create")
-</p>
 
-<div style="padding-left:2em">
+
+<div style="padding-left:2em; font-weight:500">
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserDetail.FirstName)
+                First Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UserDetail.LastName)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Lesson.LessonTitle)
+                Last Name
             </th>
 
             <th>
-                @Html.DisplayNameFor(model => model.DateViewed)
+                Lesson Title
+            </th>
+
+            <th>
+                Date Viewed
             </th>
 
 

@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2 style="padding-top: 4em; padding-left:1.5em">@ViewBag.Title</h2>
+<h2 style="padding-top: 4em; padding-left:1.3em">@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm("Edit", "Lessons", FormMethod.Post, new {@enctype = "multipart/form-data" }))
@@ -53,10 +53,11 @@
                 @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "text-danger" })
             </div>
         </div>
+        <br/>
 
         <div class="form-group">
-
             <div class="col-md-10">
+                Current PDF: @Model.PdfFilename
                 <p src="~/Content/resources/@Model.PdfFilename" title="@Model.PdfFilename" alt="@Model.PdfFilename" /><br />
                 <input type="file" name="pdfUpload" />
                 <br />

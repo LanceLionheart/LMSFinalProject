@@ -199,6 +199,7 @@
     <Content Include="Content\css\style.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\abbackground.jpg" />
+    <Content Include="Content\img\allofavicon.png" />
     <Content Include="Content\img\bg-img\c-1.jpg" />
     <Content Include="Content\img\bg-img\c-2.jpg" />
     <Content Include="Content\img\bg-img\c-3.jpg" />
@@ -261,6 +262,8 @@
     <Content Include="Content\img\lightbuildimage.jpg" />
     <Content Include="Content\img\lightbuildimage2.jpg" />
     <Content Include="Content\img\littleallofav.png" />
+    <Content Include="Content\img\littlealloicon.png" />
+    <Content Include="Content\img\littoallo2.png" />
     <Content Include="Content\img\nodes.jpg" />
     <Content Include="Content\img\portfolio-img\1.jpg" />
     <Content Include="Content\img\portfolio-img\10.jpg" />

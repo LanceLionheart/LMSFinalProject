@@ -478,7 +478,7 @@ img {
 .welcome_area {
     position: relative;
     z-index: 2;
-    height: 745px;
+    height: 835px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -490,7 +490,7 @@ img {
 }
 
 .single-hero-slide {
-    height: 700px;
+    height: 690px;
     width: 100%;
     position: relative;
     z-index: 1;
@@ -936,6 +936,8 @@ span.accor-open {
     position: relative;
     z-index: 1;
     background-color: #2c4477;
+    width:100%;
+    text-align:center
 }
 
 .single-footer-widget h5 {
@@ -1008,6 +1010,8 @@ span.accor-open {
 .footer-bottom-area {
     background-color: #191426;
     height: 60px;
+    width: 100%;
+    text-align: center
 }
 
 /* --------------------

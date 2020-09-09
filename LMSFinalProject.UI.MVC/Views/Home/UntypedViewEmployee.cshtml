@@ -10,8 +10,9 @@
     ViewBag.Title = "Course List (Six required for Annual Training Completion)";
 }
 
+<h2 style="padding-top:3.5em; padding-left:1.2em">@ViewBag.Title</h2>
 <div style="padding-left:3em; padding-bottom: 2em">
-    <h2 style="padding-top:4em">@ViewBag.Title</h2>
+    
 
 
     @foreach (Course col in ViewBag.EmpNoCourse)
@@ -27,21 +28,10 @@
     {
         <ul style="font-size:20px">
             <li>
-                <strong> @con.Course.CourseName <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{con.UserDetail.FirstName} {con.UserDetail.LastName}") &mdash; @string.Format($"{con.DateCompleted}")
+                <strong> @con.Course.CourseName <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{con.UserDetail.FirstName} {con.UserDetail.LastName}") &mdash; @string.Format($"{con.DateCompleted.Date.ToString("d")}")
 
             </li>
         </ul>
     }
 
-
-    <h3>Lessons Completed</h3>
-    @foreach (LessonView les in ViewBag.EmpLess)
-    {
-        <ul style="font-size: 14px">
-            <li>
-                <strong> @les.Lesson.LessonTitle <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{les.UserDetail.FirstName} {les.UserDetail.LastName}") &mdash; @string.Format($"{les.DateViewed}")
-            </li>
-
-        </ul>
-    }
 </div>

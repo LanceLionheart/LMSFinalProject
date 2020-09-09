@@ -4,25 +4,19 @@
     ViewBag.Title = "Course Complete";
 }
 
-<h2 style="padding-top: 3em; padding-left:1em">@ViewBag.Title</h2>
+<h2 style="padding-top: 3.5em; padding-left:1em">@ViewBag.Title</h2>
 
-<p style="padding-left:2em">
-    @Html.ActionLink("Create New", "Create")
-</p>
 <div style="padding-left:2em">
-    <table class="table" id="CourseCompletionsTable" style="padding-left:2em">
+    <table class="table" id="CourseCompletionsTable" style="padding-left:2em; font-weight:500">
         <tr>
             <th>
-                Date Completed
-                @*@Html.DisplayNameFor(model => model.DateCompleted)*@
+                Date Completed               
             </th>
             <th>
                 Course Name
-                @*@Html.DisplayNameFor(model => model.Course.CourseName)*@
             </th>
             <th>
                 Name
-                @*@Html.DisplayNameFor(model => model.UserDetail.FirstName)*@
             </th>
             <th></th>
         </tr>

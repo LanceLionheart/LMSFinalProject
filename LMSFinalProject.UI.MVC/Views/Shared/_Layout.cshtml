@@ -12,7 +12,7 @@
 
     <!-- Favicon -->
     <!--Favicon-->
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/img/littleallofav.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/img/littlealloicon.png">
     <!-- Core Stylesheet -->
     <link href="~/Content/css/style.css" rel="stylesheet">
     <!-- Responsive CSS -->
@@ -73,7 +73,6 @@
                                             @if (User.IsInRole("HR Admin"))
                                             {
                                                 <a class="dropdown-item" href="@Url.Action("Index", "Lessons")">Lessons</a>
-                                                <a class="dropdown-item" href="@Url.Action("Index","CourseCompletions")">Completed Courses</a>
                                                 <a class="dropdown-item" href="@Url.Action("Index", "LessonViews")">Lessons Viewed</a>
                                                 <a class="dropdown-item" href="@Url.Action("Index", "CourseCompletions")">Course Completions</a>
                                             }
@@ -137,8 +136,8 @@
                     </div>
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="single-footer-widget mb-100">
-                            <h5>Fast links</h5>
-                            <ul>
+                            <h5 style="text-align:left">Fast links</h5>
+                            <ul style="text-align:left">
                                 <li><a href="@Url.Action("Index","Home")">Home <i class="fa fa-home"></i></a></li>
                                 <li><a href="@Url.Action("Index","Courses")">Courses  <i class="fa fa-book"></i></a></li>
                                 <li><a href="@Url.Action("UntypedViewEmployee","Home")">Your Progress  <i class="fa fa-check"></i></a></li>
@@ -147,40 +146,40 @@
                     </div>
                     <div class="col-12 col-sm-6 col-lg-3" style="color:ivory;">
                         <div class="single-footer-widget mb-100">
-                            <h5>Resources</h5>
+                            <h5 style="text-align:left">Resources</h5>
                             <div class="footer-single--blog-post" style="font-size:40px; font-weight: 300">
                                 <a href="http://www.youtube.com">
-                                    <p>www.youtube.com</p>
+                                    <p style="text-align:left">www.youtube.com</p>
                                 </a>
                                 <a href="http://www.w3schools.com">
-                                    <p>www.w3schools.com</p>
+                                    <p style="text-align:left">www.w3schools.com</p>
                                 </a>
                                 <a href="http://www.stackoverflow.com">
-                                    <p>www.stackoverflow.com</p>
+                                    <p style="text-align:left">www.stackoverflow.com</p>
                                 </a>                          
                             </div>                         
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-3">
                         <div class="single-footer-widget mb-100">
-                            <h5>Contact Info</h5>
+                            <h5 style="text-align:left">Contact Info</h5>
                             <div class="footer-single-contact-info d-flex">
                                 <div class="contact-icon">
                                     <img src="~/Content/img/core-img/map.png" alt="">
                                 </div>
-                                <p>22 Grizzly Road, Kalispell, Montana</p>
+                                <p style="text-align:left">22 Grizzly Road, Kalispell, Montana</p>
                             </div>
                             <div class="footer-single-contact-info d-flex">
                                 <div class="contact-icon">
                                     <img src="~/Content/img/core-img/call.png" alt="">
                                 </div>
-                                <p>Main: 203-808-8613 <br> Office: 203-808-8648</p>
+                                <p style="text-align:left">Main: 203-808-8613 <br> Office: 203-808-8648</p>
                             </div>
                             <div class="footer-single-contact-info d-flex">
                                 <div class="contact-icon">
                                     <img src="~/Content/img/core-img/message.png" alt="">
                                 </div>
-                                <p>office@yourbusiness.com</p>
+                                <p style="text-align:left">office@yourbusiness.com</p>
                             </div>
                         </div>
                     </div>
@@ -192,12 +191,12 @@
             <div class="container h-100">
                 <div class="row h-100">
                     <div class="col-12 h-100">
-                        <div class="footer-bottom-content h-100 d-md-flex justify-content-between align-items-center">
+                        <div style="padding-top:.5em">
                             <div class="copyright-text">
                                 <p style="color:#aba7a7;">
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> Converted by Lance Vogel
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Converted by Lance Vogel
                                     <div style="color:#abadbe; font-size: 10px">Icons made by <a href="https://www.flaticon.com/free-icon/dinosaur_2614727" title="Good Ware">Good Ware</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>

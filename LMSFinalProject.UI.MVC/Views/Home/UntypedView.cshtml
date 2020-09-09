@@ -19,7 +19,7 @@
         @foreach (LessonView le in ViewBag.OrderLesson)  //Home Controller
         {
         <li style="color:black;">
-            @le.UserDetail.FirstName @le.UserDetail.LastName&mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{le.DateViewed.Date}")
+            @le.UserDetail.FirstName @le.UserDetail.LastName&mdash; <strong>@string.Format($"{le.Lesson.LessonTitle}")</strong> &mdash; @string.Format($"{le.DateViewed.Date.ToString("d")}")
         </li>
         }
     </ul>
@@ -29,7 +29,7 @@
         @foreach (CourseCompletion cou in ViewBag.OrderCourse)
         {
             <li>
-                @cou.UserDetail.FirstName  @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+                @cou.UserDetail.FirstName  @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted.Date.ToString("d")}")
             </li>
         }
 

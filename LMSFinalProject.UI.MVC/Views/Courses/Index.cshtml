@@ -4,16 +4,17 @@
     ViewBag.Title = "Courses";
 }
 
-<h2 style="padding-top: 3em; padding-left:1em;">@ViewBag.Title</h2>
+<h2 style="padding-top: 3.5em; padding-left:1.2em;">@ViewBag.Title</h2>
 
 @if (User.IsInRole("HR Admin"))
 {
     <div id="CourseCreate">
         @Html.Partial("CourseCreate", new LMSFinalProject.DATA.EF.Course())
     </div>
-    <button id="toggleCourseCreate" class="btn btn-primary" style="padding-left:2em">
+    <div style="padding-left:2em; padding-bottom: 1em">
+<button id="toggleCourseCreate" class="btn btn-primary">
         Create Course
-    </button>
+    </button></div>
 }
 
 <div style="padding-left:2em">
@@ -56,7 +57,6 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CourseId)
                         @Html.DisplayFor(modelItem => item.CourseName)
                         <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
 
@@ -67,8 +67,8 @@
 
                     <td>
 
-                        <a href="" class="EditLink" id="@item.CourseId">Edit</a>
-                        <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
+                        <a href="" class="EditLink" id="@item.CourseId">Edit</a> |
+                        <a href="" class="DetailsLink" id="@item.CourseId">Details</a> |
 
                         @if (item.IsActive == false)
                         {
@@ -133,8 +133,8 @@
                    //Load the new LessonDetails partialView using the id
                    $(this).load("/Courses/CourseDetails/" + data);
                },
-               width: 400,
-               height: 200,
+               width: 450,
+               height: 400,
                title: "Course Details",
                resizeable: false
            });
