@@ -19,7 +19,7 @@
         }
 
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li><!--Greets logged in user by their First Name-->
                 @Html.ActionLink("Hello " + @*User.Identity.GetUserName()*@ userFN + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">&nbsp;&nbsp;Log off</a></li>

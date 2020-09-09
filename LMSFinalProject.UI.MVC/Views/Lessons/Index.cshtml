@@ -16,12 +16,6 @@
     Create Lesson
 </button>
 
-
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
-
-
 <table class="table" id="LessonsTable" style="padding-left:2em;">
     <tr>
         <th>
@@ -74,7 +68,6 @@
 
                 @if (item.IsActive == false)
                 {
-                    //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)
                     @Ajax.ActionLink("Delete", "AjaxDelete", "Lessons", new { id = item.LessonId },
                                   new AjaxOptions
                                   {
@@ -94,12 +87,6 @@
 </table>
 
 
-@*<script>
-        $(document).ready(function () {
-            $('.table').DataTable();
-        });
-    </script>*@
-
 <div id="LessonDetails"></div>
 <div id="LessonEdit"></div>
 
@@ -108,25 +95,13 @@
 
 <script type="text/javascript">
 
-
-            //$(function () {
-            //    $("#dialog1").dialog({
-            //        autoOpen: false
-            //    });
-
-            //    $("#opener").click(function () {
-            //        $("#dialog1").dialog('open');
-            //    });
-            //});
-
-
        //AJAX DELETE CONFIRMATION
         function deleteConfirmed(response) {
-            //Remove the row from the table*****************************************
+            //Remove the row from the table
             var rowId = '#Lesson-' + response.id;
             $('#LessonsTable').find(rowId).remove();
 
-            //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
+            //Display a status message adding Html to MessageContentID
             $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
 
         }
@@ -151,9 +126,7 @@
        });
        //#endregion
 
-       //AJAX Show Create form - this toggles the end user capability to see the form
-       //When the create publisher button is clicked toggle the create form visibility
-       //back on (it should start hidden)
+       //AJAX Show Create form
        $('#LessonCreate').hide();
        $('#toggleLessonCreate').click(function () {
            $("#LessonCreate").toggle();
@@ -189,10 +162,7 @@
                    $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
                    //Clear the form
                    $('#LessonCreateForm')[0].reset();
-                   //Add the (temporary) row to the table. Remember the browser
-                   //is being manually updated so you will see a message to refresh the view to see the links.
-                   //You could code these in, we're leaving out so you can see asynchronous activity.
-                   //When the view is refreshed, the new record will reload into the table with links in the last column
+                   //Add the (temporary) row to the table.
                    $(function (){
                        var row = '<tr><td>' + data.LessonTitle +
                            '</td><td>' + data.Introduction +
@@ -231,17 +201,6 @@
                resizeable: false
             });
        });
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 

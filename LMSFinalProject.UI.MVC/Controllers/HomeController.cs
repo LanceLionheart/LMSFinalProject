@@ -7,7 +7,7 @@ using LMSFinalProject.DATA.EF;
 using System.Net.Mail;
 using System.Net;
 using LMSFinalProject.Models;
-using Microsoft.AspNet.Identity; //Added these two
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Data;
 using System.Data.Entity;
@@ -43,47 +43,23 @@ namespace LMSFinalProject.UI.MVC.Controllers
             return View();
         }
 
-
+        //Employee Status Page (UntypedView)
         public ActionResult UntypedView()
         {
-
-            LMSFinalEntities1 db = new LMSFinalEntities1();
-
-            string userID = User.Identity.GetUserId();
-            //Linq     Order Information on LessonsViewed and CoursesCompleted
-
-            //WORKS!!
+            //Order LessonViews (Completed Lessons) by User Last Name
             var orderLesson = db.LessonViews.Where(ol => ol.DateViewed != null).OrderBy(ol => ol.UserDetail.LastName);
 
-            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null).OrderBy(oc =>oc.UserDetail.LastName);
-
-            //When employee has finished 6 courses, they are added to Annual Training Complete List
-
-            //variable to find total number of lessons related to specific course
-            //var totallesson = db.Lessons.Where(cl => cl.CourseId == lesson.CourseId).Count();
-
-            //Course Completions- CourseCompletionId, UserId (FK), CourseId, DateCompleted
-            //User Details - UserId (PK), First Name, Last Name
-
-
-            //Previous
-            var annualDone = db.CourseCompletions.Where(x => x.UserId == userID);
-            //var annualDone = db.CourseCompletions.Where(cl => cl.UserId.Count() > 5);
-
-
-            //var annualDone = db.CourseCompletions.Where(oo => oo.UserId.Count() == 6);
-            //pasted from email section
-
+            //Order CourseCompletions (Completed Courses) by User Last Name
+            var orderCourse = db.CourseCompletions.Where(oc => oc.DateCompleted != null).OrderBy(oc => oc.UserDetail.LastName);
 
             ViewBag.OrderLesson = orderLesson;
             ViewBag.OrderCourse = orderCourse;
-            ViewBag.AnnualDone = annualDone;
+
 
             return View();
         }
 
-
-        //Employee Course Completed View
+        //My Progress Page (UntypedViewEmployee)
         public ActionResult UntypedViewEmployee(int? id)
         {
 
@@ -93,23 +69,16 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
             string userID = User.Identity.GetUserId();
 
-            
-
-            //Courses completed by employees (Check mark next to them)
+            //Courses completed by currently logged in user
             var empCourse = db.CourseCompletions.Where(oc => oc.UserId == userID);
 
-            //Lessons completed by employees (Check mark next to them)
+            //Lessons completed by currently logged in user
             var empLess = db.LessonViews.Where(oc => oc.UserId == userID);
 
 
-            //variable to relate courses not complete (Experimenting)
-            //var alldone = db.LessonViews.Where(all => all.UserDetail.UserId == userID);
-
-            //All Active Courses 
+            //All Active Courses so Employees can keep track of what still needs to be completed
             var empnoCourse = db.Courses.Where(en => en.CourseId != null && en.IsActive == true);
 
-
-            //var empnoCourse = db.CourseCompletions.Where(en => en.UserId != en.UserDetail.UserId);
 
             ViewBag.EmpLess = empLess;
             ViewBag.EmpCourse = empCourse;
@@ -121,7 +90,7 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]  //Error message creator
+        [ValidateAntiForgeryToken]
         public ActionResult Contact(ContactViewModel usersContactRequest)
         {
             if (!ModelState.IsValid)
@@ -129,12 +98,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 return View(usersContactRequest);
             }
 
-            //The MailMessage Object takes several parameters has 3 overloads 
-            //This instance in particular takes 4 parameters:
-            //from: admin@yourdomain.com
-            //to: lzvogel@outlook.com
-            //subject: usersContactRequest.Subject (ContactViewModel passed into the POST Contact route (above))
-            //message: usersContactRequest.Message (ContactViewModel passed into the POST Contact route (above))
             MailMessage msg = new MailMessage(
                 "admin@lancevogel.com",
                 "lzvogel@outlook.com",
@@ -144,8 +107,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
             msg.IsBodyHtml = true;
             msg.Priority = MailPriority.High;
 
-            //msg.ReplyToList.Add(cvm.Email);
-            //msg.CC.Add("metalsquidlance@gmail.com");
 
             SmtpClient client = new SmtpClient("mail.lancevogel.com");
             client.Credentials = new NetworkCredential("admin@lancevogel.com", "Turtle333!");
@@ -163,17 +124,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 return View(usersContactRequest);
             }
 
-            return View("EmailConfirmation", usersContactRequest); // send the user to a email conformation view
+            return View("EmailConfirmation", usersContactRequest);
         }
 
-
-        //public ActionResult UnpublishedCourses()
-        //{
-
-
-        //    return View();
-        //}
-
-
-        }
+    }
 }

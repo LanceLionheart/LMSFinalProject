@@ -61,8 +61,11 @@
                             <div class="collapse navbar-collapse justify-content-end" id="mosh-navbar">
                                 <ul class="navbar-nav animated" id="nav">
 
-                                    <li class="nav-item"><a class="nav-link"  style="font-size:15px" href="@Url.Action("Index","Home")">Home <i class="fa fa-home"></i></a></li>
+                                    <li class="nav-item"><a class="nav-link" style="font-size:15px" href="@Url.Action("Index","Home")">Home <i class="fa fa-home"></i></a></li>
 
+                                    <!--Must be registered and placed in a role by admin to view webpages-->
+                                    @if(User.IsInRole("HR Admin") || User.IsInRole("Manager") || User.IsInRole("Employee"))
+                                            { 
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="moshDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</a>
                                         <div class="dropdown-menu" aria-labelledby="moshDropdown">
@@ -71,35 +74,27 @@
                                             {
                                                 <a class="dropdown-item" href="@Url.Action("Index", "Lessons")">Lessons</a>
                                                 <a class="dropdown-item" href="@Url.Action("Index","CourseCompletions")">Completed Courses</a>
-                                            }
-                                            @if (User.IsInRole("HR Admin") || User.IsInRole("Manager"))
-                                            {
                                                 <a class="dropdown-item" href="@Url.Action("Index", "LessonViews")">Lessons Viewed</a>
                                                 <a class="dropdown-item" href="@Url.Action("Index", "CourseCompletions")">Course Completions</a>
+                                            }
+                                            <!--Manager/Authorization required to view all employee progress-->
+                                            @if (User.IsInRole("HR Admin") || User.IsInRole("Manager"))
+                                            {
+                                                <a class="dropdown-item" href="@Url.Action("UntypedView","Home")">Employee Progress</a>
 
                                             }
-                                            <!--Move to Manager Only View after testing-->
-                                            <a class="dropdown-item" href="@Url.Action("UntypedView","Home")">Employee Progress</a>
 
-                                            <!--Need to make your progress employee viewable only-->
-                                            <a class="dropdown-item" href="@Url.Action("UntypedViewEmployee","Home")">Your Progress</a>
+                                            <!--Employee/Admin Authorization required for employee privacy. Admin cannot see user information because it requires currently logged in user-->
+                                            @if (User.IsInRole("HR Admin") || User.IsInRole("Employee"))
+                                            {
+                                                <a class="dropdown-item" href="@Url.Action("UntypedViewEmployee", "Home")">Your Progress</a>
+                                            }
 
-                                            @*<a class="dropdown-item" href="@Url.Action("Index","UserDetails")">User Details</a>*@
                                             <a class="dropdown-item" href="@Url.Action("Index","Courses")">Courses</a>
 
                                         </div>
                                     </li>
-
-                                    @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Index","LessonsViewed")">Lessons Viewed</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","UserDetails")">User Details</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Lessons")">Lessons</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Courses")">Courses</a></li>
-                <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","CourseCompletion")">Completed Courses</a></li>*@
-
-
-                                    @*<li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>*@
+                                        }
 
                                     <li class="nav-item"><a class="nav-link" href="@Url.Action("Contact","Home")">Contact HR</a></li>
 
@@ -112,11 +107,7 @@
 
                                 <!-- Login/Register btn -->
                                 @Html.Partial("_LoginPartial")
-                                @*<div class="login-register-btn">
-                <a href="@Url.Action("Login","Account")">Login</a>
-                <a href="@Url.Action("Register","Account")">/ Register</a>
 
-            </div>*@
                             </div>
                         </nav>
                     </div>
@@ -125,8 +116,6 @@
         </div>
     </header>
 
-    <!--RenderSection for Style associated with the CSS view-->
-    @*@RenderSection("style", false)*@
     <div id="MessageDisplay" class="row">
         <div class="col-md-10 col-md-offset-1" id="MessageContent"></div>
     </div>
@@ -153,8 +142,6 @@
                                 <li><a href="@Url.Action("Index","Home")">Home <i class="fa fa-home"></i></a></li>
                                 <li><a href="@Url.Action("Index","Courses")">Courses  <i class="fa fa-book"></i></a></li>
                                 <li><a href="@Url.Action("UntypedViewEmployee","Home")">Your Progress  <i class="fa fa-check"></i></a></li>
-                                @*<li><a href="#">Accordions and tabs</a></li>
-                                <li><a href="#">Menu ideas</a></li>*@
                             </ul>
                         </div>
                     </div>
@@ -170,27 +157,8 @@
                                 </a>
                                 <a href="http://www.stackoverflow.com">
                                     <p>www.stackoverflow.com</p>
-                                </a>
-                                @*<a href="#" class="blog-post-title">
-            <h6>Why we love stock photos</h6>
-        </a>*@
-                            </div>
-                            @*<div class="footer-single--blog-post">
-                                <a href="#" class="blog-post-date">
-                                    <p>22 September, 2017</p>
-                                </a>
-                                <a href="#" class="blog-post-title">
-                                    <h6>Designin on grid. A few rules. </h6>
-                                </a>
-                            </div>
-                            <div class="footer-single--blog-post">
-                                <a href="#" class="blog-post-date">
-                                    <p>20 September, 2017</p>
-                                </a>
-                                <a href="#" class="blog-post-title">
-                                    <h6>2017 World Design Congress</h6>
-                                </a>
-                            </div>*@
+                                </a>                          
+                            </div>                         
                         </div>
                     </div>
                     <div class="col-12 col-sm-6 col-lg-3">
@@ -234,14 +202,6 @@
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 </p>
                             </div>
-                            @*<div class="footer-social-info">
-                                <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a>
-                                <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                            </div>*@
                         </div>
                     </div>
                 </div>
@@ -252,7 +212,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @*@Scripts.Render("~/bundles/template")*@
 
     <!--ADDEDjQuery UI CDN-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -263,7 +222,7 @@
     <!--JavaScript for Datatables.net-->
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
-    <!-- jQuery-2.2.4 js *******************************************************-->
+    <!-- jQuery-2.2.4 js -->
     <script src="~/Content/js/jquery-2.2.4.min.js"></script>
     <!-- Popper js -->
     <script src="~/Content/js/popper.min.js"></script>

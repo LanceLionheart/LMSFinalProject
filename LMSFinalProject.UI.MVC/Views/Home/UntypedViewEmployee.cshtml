@@ -13,21 +13,11 @@
 <div style="padding-left:3em; padding-bottom: 2em">
     <h2 style="padding-top:4em">@ViewBag.Title</h2>
 
-    @*@foreach (CourseCompletion cou in ViewBag.EmpCourse)
-        {
-            <ul>
-                <li>
-                    @cou.UserDetail.FirstName @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
-                </li>
-            </ul>
-        }*@
-
-    @*<h2></h2>*@
 
     @foreach (Course col in ViewBag.EmpNoCourse)
     {<ul>
             <li style="font-weight:500">
-                @col.CourseName @*&mdash; <strong>@string.Format($"{coul.Course.CourseName}")</strong>*@
+                @col.CourseName
             </li>
         </ul>
     }
@@ -49,28 +39,9 @@
     {
         <ul style="font-size: 14px">
             <li>
-               <strong> @les.Lesson.LessonTitle <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{les.UserDetail.FirstName} {les.UserDetail.LastName}") &mdash; @string.Format($"{les.DateViewed}")
+                <strong> @les.Lesson.LessonTitle <i class="fa fa-check"></i></strong> &mdash; @string.Format($"{les.UserDetail.FirstName} {les.UserDetail.LastName}") &mdash; @string.Format($"{les.DateViewed}")
             </li>
 
         </ul>
     }
 </div>
-
-
-
-
-
-<!--Potential for Status Bar-->
-@*<div id="progressbar" style="position:relative; width: 900px">
-        <span id="progressbar-label" style="position:absolute; left: 50%; top:20%">Annual Training Progress</span>
-    </div>
-
-                    <script>
-
-       Progress Bar for Employee Course Completion
-    $( function() {
-        $( "#progressbar" ).progressbar({
-          value: 6
-        });
-    });
-      </script>*@

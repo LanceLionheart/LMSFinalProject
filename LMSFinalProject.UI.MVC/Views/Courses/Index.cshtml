@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<LMSFinalProject.DATA.EF.Course>
 
 @{
-                /**/
-
-                ViewBag.Title = "Courses";
+    ViewBag.Title = "Courses";
 }
 
 <h2 style="padding-top: 3em; padding-left:1em;">@ViewBag.Title</h2>
@@ -17,25 +15,16 @@
         Create Course
     </button>
 }
-@*<p>
-        @Html.ActionLink("Create New", "Create")
-    </p>*@
 
 <div style="padding-left:2em">
     <table class="table" id="CoursesTable" style="padding-left:2em; font-weight:500">
         <tr>
             <th>
                 Course Name
-                @*@Html.DisplayNameFor(model => model.CourseName)*@
-
             </th>
             <th>
                 Course Description
-                @*@Html.DisplayNameFor(model => model.CourseDescription)*@
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.IsActive)
-                </th>*@
             <th></th>
         </tr>
 
@@ -45,32 +34,20 @@
             {
                 <tr>
                     <td>
-                        @*<a href="@Url.Action("Index","Lessons")">*@
-
-                        @*@Html.DisplayFor(modelItem => item.CourseId)*@
                         @Html.DisplayFor(modelItem => item.CourseName)
 
-                        @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
                         <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
 
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CourseDescription)
                     </td>
-                    @*@if (item.IsActive == false && User.IsInRole("HR Admin") ==false)
-                        {*@
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.IsActive)
-                        </td>*@
-                    @*}*@
 
                     <td>
-                        @*@Html.ActionLink("Edit", "Edit", new { id=item.CourseId }) |*@
                         @if (User.IsInRole("HR Admin"))
                         {
                             <a href="" class="EditLink" id="@item.CourseId">Edit</a>
 
-                            @*@Html.ActionLink("Details", "Details", new { id = item.CourseId }) |*@
                             <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
                         }
                 </tr>
@@ -79,10 +56,8 @@
             {
                 <tr>
                     <td>
-                        @*<a href="@Url.Action("Index","Lessons")">*@
                         @Html.DisplayFor(modelItem => item.CourseId)
                         @Html.DisplayFor(modelItem => item.CourseName)
-                        @*<a href="" class="ViewLesson" id="@item.CourseId">View Lessons</a>*@
                         <a href="" class="ViewLessonIndex" id="@item.CourseId">View Lessons</a>
 
                     </td>
@@ -95,11 +70,8 @@
                         <a href="" class="EditLink" id="@item.CourseId">Edit</a>
                         <a href="" class="DetailsLink" id="@item.CourseId">Details</a>
 
-
-
                         @if (item.IsActive == false)
                         {
-                            //Signature used: (String text, string action, string controller, object routeValues, object ajaxOptions)
                             @Ajax.ActionLink("Delete", "AjaxDelete", "Courses", new { id = item.CourseId },
                                           new AjaxOptions
                                           {
@@ -133,21 +105,18 @@
 
     <script type="text/javascript">
 
+        //Alert for Completed Lesson
         function display() {
             alert("Lesson Completed Successfully!")
         };
 
-
-
-
-
-       //AJAX DELETE CONFIRMATION
+        //AJAX Delete Confirmation
         function deleteConfirmed(response) {
-            //Remove the row from the table*****************************************
+            //Remove the row from the table
             var rowId = '#Course-' + response.id;
             $('#CoursesTable').find(rowId).remove();
 
-            //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
+            //Display a status message adding Html to MessageContentID
             $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
 
         }
@@ -170,11 +139,8 @@
                resizeable: false
            });
        });
-       //#endregion
 
-       //AJAX Show Create form - this toggles the end user capability to see the form
-       //When the create publisher button is clicked toggle the create form visibility
-       //back on (it should start hidden)
+       //AJAX Show Create form
        $('#CourseCreate').hide();
        $('#toggleCourseCreate').click(function () {
            $("#CourseCreate").toggle();
@@ -189,7 +155,7 @@
        });
 
 
-       //Submit the form
+       //Submit form
        $("#CourseCreateForm").submit(function (e) {
            var formData = $(this).serializeArray();
            //Interrupt the normal submit event
@@ -210,15 +176,12 @@
                    $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
                    //Clear the form
                    $('#CourseCreateForm')[0].reset();
-                   //Add the (temporary) row to the table. Remember the browser
-                   //is being manually updated so you will see a message to refresh the view to see the links.
-                   //You could code these in, we're leaving out so you can see asynchronous activity.
-                   //When the view is refreshed, the new record will reload into the table with links in the last column
+                   //Add the (temporary) row to the table.
                    $(function (){
                        var row = '<tr><td>' + data.CourseName +
                            '</td><td>' + data.CourseDescription +
                            '</td><td>' + data.IsActive +
-                           '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                           '</td><td></td><td>Refresh to view options </td></tr>';
                        //Add the row to the table
                        $('#CoursesTable').append(row);
 
@@ -251,7 +214,7 @@
             });
        });
 
-        //EXPERIMENT DETAILS
+        //Details
        $('a.ViewLesson').click(function (e) {
            e.preventDefault();
            $('#CourseDetails').data('pId', $(this).attr('id')).dialog({
@@ -271,7 +234,7 @@
        });
 
 
-        //EXPERIMENTS INDEX
+        //Index
 
        $('a.ViewLessonIndex').click(function (e) {
            e.preventDefault();
@@ -308,22 +271,6 @@
            }
        });
 
-//***********************************************************************************
-
-
-        //Experimenting with LessonComplete (Similiar to Delete)
-
-       //function LessonConfirmed(response) {
-       //    //Remove the row from the table
-       //    var rowId = '#Lesson-' + response.id;
-       //    $('#LessonsTable').find(rowId).remove();
-
-       //    //Display a status message. (Why we added the div to the _layout) adding Html to MessageContentID
-       //    $('#MessageContent').html("<div class = 'alert alert-success'>" + response.message + "</div>");
-
-        //}
-
-
         //Submitting The Complete Course
 
        $("#CourseCompleteForm").submit(function (e) {
@@ -346,10 +293,7 @@
                $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully inserted!</div>");
                //Clear the form
                $('#CourseCompleteForm')[0].reset();
-               //Add the (temporary) row to the table. Remember the browser
-               //is being manually updated so you will see a message to refresh the view to see the links.
-               //You could code these in, we're leaving out so you can see asynchronous activity.
-               //When the view is refreshed, the new record will reload into the table with links in the last column
+               //Add the (temporary) row to the table.
                $(function (){
                    var row = '<tr><td>' + data.UserId +
                        '</td><td>' + data.CourseId +
@@ -371,7 +315,7 @@
        });
        });
 
-        //-************************YOUTUBE VIDEO*****************************
+        //YoutTube API (Needs more work to be implemented into a AJAX partial
         var player;
         var h = '@ViewBag.height';
         var w = '@ViewBag.width';
@@ -412,16 +356,4 @@
             }
         }
     </script>
-
-
-
-
-
-
-    @*<script>*@
-    @*// create youtube player
-
-        </script>*@
-
-
 }

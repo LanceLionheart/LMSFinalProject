@@ -20,9 +20,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.PdfFilename)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.IsActive)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Course.CourseName)
             </th>
@@ -38,30 +35,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Introduction)
                 </td>
-                @*@if (item.VideoURL != null)
-                {*@
+
                 <td>
                     <a href="@Html.DisplayFor(modelItem => item.VideoURL)" target="_blank">Video Link</a>
-                    @*<embed src="@Html.DisplayFor(modelItem => item.VideoURL)" width="560px" height="340px" />*@
                 </td>
-                    @*//}*@
 
-                @*@if (item.VideoURL != null)
-                {*@
                     <td>
                         <a href="~/Content/resources/@Html.DisplayFor(modelItem => item.PdfFilename)" target="_blank">PDF Link</a>
                     </td>
-                @*}*@
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.IsActive)
-                    </td>*@
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Course.CourseName)
                 </td>
                 <td>
 
-                    <!--Complete Link/Button-->
-                    <!--BIG BUTTON!!  (Only seen by employees)-->
+
+                    <!--Complete Lesson (Big Button Domino Effect) (Only seen by employees)-->
                     @if (User.IsInRole("Employee"))
 
                     {
@@ -70,12 +59,6 @@
 
                     }
                     
-
-
-
-                    @*@Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.LessonId }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.LessonId })*@
                 </td>
             </tr>
         }
@@ -83,12 +66,8 @@
     </table>
     <script>
         
-       
 
-
-
-
-            //-************************YOUTUBE VIDEO*****************************
+            //-YouTube API (Need to rework to add to partial in later versions)
         @*var player;
         var h = '@ViewBag.height';
         var w = '@ViewBag.width';

@@ -4,9 +4,6 @@
 @using System.Text;
 @using System.Threading.Tasks;
 @using LMSFinalProject.DATA.EF;
-@*@model LMSFinalProject.DATA.EF.CourseCompletion*@
-@*@model LMSFinalProject.DATA.EF.LessonView*@
-
 @using Microsoft.AspNet.Identity
 
 
@@ -36,33 +33,6 @@
             </li>
         }
 
-        @*@Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
-        @*@Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })*@
-
     </ul>
 
-    @*<h3>Completed Annual Training</h3>
-    @foreach (CourseCompletion ad in ViewBag.AnnualDone)
-    {
-
-    <ul>
-        <li>
-            @ad.UserDetail.LastName  &mdash; <strong>@string.Format($"{ad.DateCompleted}")</strong>
-        </li>
-    </ul>
-    }*@
 </div>
-
-
-
-
-<script>
-
-   //Progress Bar for Employee Course Completion
-$( function() {
-    $( "#UserId" ).progressbar({
-      value: 6
-    });
-  } );
-</script>
-

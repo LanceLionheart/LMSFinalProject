@@ -77,10 +77,7 @@
             $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully updated!</div>");
             //Clear the form
             $('#CourseEditForm')[0].reset();
-            //Add the (temporary) row to the table. Remember the browser
-            //is being manually updated so you will see a message to refresh the view to see the links.
-            //You could code these in, we're leaving out so you can see asynchronous activity.
-            //When the view is refreshed, the new record will reload into the table with links in the last column
+            //Add the (temporary) row to the table.
             $(function (){
                 var row = '<tr><td>' + data.CourseName +
                     '</td><td>' + data.CourseDescription +

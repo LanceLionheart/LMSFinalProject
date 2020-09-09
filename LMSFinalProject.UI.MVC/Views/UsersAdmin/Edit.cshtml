@@ -4,13 +4,15 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit.</h2>
+<h2 style="padding-top: 4em; padding-left: 2em" >@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div style="padding-left:2em" >
+
+<div class="form-horizontal">
         <h4>Edit User Form.</h4>
         <hr />
         @Html.ValidationSummary(true)
@@ -39,10 +41,10 @@
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
-    </div>
+    </div></div>
 }
 
-<div>
+<div style="padding-left:2em">
     @Html.ActionLink("Back to List", "Index")
 </div>
 

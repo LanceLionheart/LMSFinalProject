@@ -42,19 +42,15 @@ namespace LMSFinalProject.UI.MVC.Controllers
         public PartialViewResult LessonDetails(int id)
         {
             Lesson less = db.Lessons.Find(id);
-            //Courses course = db.Courses.Find(id)
-            //Grab all lessons from that course and add it to a list. Send that list into the view. 
-         
 
             return PartialView(less);
-
         }
         #endregion
 
         #region AJAX Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult LessonCreate(Lesson lesson, HttpPostedFileBase pdfUpload) //Do I need binds here?
+        public JsonResult LessonCreate(Lesson lesson, HttpPostedFileBase pdfUpload)
         {
             {
                 if (ModelState.IsValid)
@@ -147,8 +143,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
                 db.SaveChanges();
 
                 #endregion
-                //    db.Entry(lesson).State = EntityState.Modified;
-                //db.SaveChanges();
                 
             }
             return Json(lesson);
@@ -215,13 +209,10 @@ namespace LMSFinalProject.UI.MVC.Controllers
             {
                 #region Pdf Upload (Create)
 
-                //string pdfName = "dummypdf.pdf";
-
                 if (pdfUpload != null)
                 {
                     string pdfName = pdfUpload.FileName;
 
-                    //pdfName = pdfUpload.FileName;
 
                     string ext = pdfName.Substring(pdfName.LastIndexOf("."));
 
@@ -229,7 +220,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
                     if (goodExts.Contains(ext))
                     {
-                        //pdfName = Guid.NewGuid() + ext;
 
                         pdfUpload.SaveAs(Server.MapPath("~/Content/resources/" + pdfName));
                         lesson.PdfFilename = pdfName;
@@ -288,10 +278,9 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     if (goodExts.Contains(ext.ToLower()))
                     {
 
-                        //pdfName = Guid.NewGuid() + ext;
                         pdfUpload.SaveAs(Server.MapPath("~/Content/resources/" + pdfName));
 
-                        if (lesson.PdfFilename != null && lesson.PdfFilename != pdfName)//Error here
+                        if (lesson.PdfFilename != null && lesson.PdfFilename != pdfName)
                         {
                             System.IO.File.Delete(Server.MapPath("~/Content/resources/" + lesson.PdfFilename));
                         }
@@ -300,24 +289,12 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     }
 
                 }
-                //else
-                //{
-                //    var pdfs = db.Lessons.ToList();
-                //    var test = from l in pdfs
-                //               where l.LessonId == lesson.LessonId
-                //               select l.PdfFilename;
-
-                //    lesson.PdfFilename = test.FirstOrDefault().ToString();
-                    
-                //}
 
                 db.Set<Lesson>().AddOrUpdate(lesson);
                 db.SaveChanges();
 
                 #endregion
 
-                //db.Entry(lesson).State = EntityState.Modified;
-                //db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.CourseId = new SelectList(db.Lessons, "LessonId", "LessonName", lesson.LessonId);

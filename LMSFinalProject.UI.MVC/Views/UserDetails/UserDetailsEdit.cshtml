@@ -46,8 +46,6 @@
 <script>
     //Submit the form
     $("#UserDetailsEditForm").submit(function (e) {
-        //Serialize (package the form data for transport as an object)
-        //Create an array of objects with a name and value
         var formData = $(this).serializeArray();
         //Interrupt the normal submit event
         e.preventDefault();
@@ -67,14 +65,11 @@
             $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully updated!</div>");
             //Clear the form
             $('#UserDetailsEditForm')[0].reset();
-            //Add the (temporary) row to the table. Remember the browser
-            //is being manually updated so you will see a message to refresh the view to see the links.
-            //You could code these in, we're leaving out so you can see asynchronous activity.
-            //When the view is refreshed, the new record will reload into the table with links in the last column
+            //Add the (temporary) row to the table.
             $(function (){
                 var row = '<tr><td>' + data.FirstName +
                     '</td><td>' + data.LastName +
-                    '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                    '</td><td></td><td>Refresh to view options </td></tr>';
                 //Replace the row to the table
                 $('#UserDetails-' + data.User).replaceWith(row);
             });

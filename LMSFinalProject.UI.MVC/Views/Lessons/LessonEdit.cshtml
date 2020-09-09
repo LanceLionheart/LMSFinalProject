@@ -22,9 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CourseId, "CourseId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!--When editing, remove all data from this editor box-->
                 @Html.EditorFor(model => model.CourseId, new { htmlAttributes = new { @class = "form-control" } })
-                @*@Html.DropDownList("CourseId", null, htmlAttributes: new { @class = "form-control" })*@
                 @Html.ValidationMessageFor(model => model.CourseId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,14 +46,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*<img src="~/@Model.PdfFilename" title="@Model.PdfFilename" alt="@Model.PdfFilename" /><br />*@
                 <input type="file" class="form-control" accept=".pdf" id="pdfUpload" />
                 <br />
-            @*@Html.LabelFor(model => model.PdfFilename, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.PdfFilename, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.PdfFilename, "", new { @class = "text-danger" })
-        </div>*@
             </div>
         </div>
 
@@ -87,11 +79,8 @@
 
 <script>
     //Submit the form
-    //Submit the form
     $("#LessonEditForm").submit(function (e) {
         debugger;
-        //Serialize (package the form data for transport as an object)
-        //Create an array of objects with a name and value
         var formData = $(this).serializeArray();
         //Interrupt the normal submit event
         e.preventDefault();
@@ -106,28 +95,24 @@
         data: formData,
         //sending as Json
         dataType: "json",
-        //If it works, show the succes message in the div located above the renderBody in the layout
+        //If it works, show the success message in the div located above the renderBody in the layout
         success: function(data){
             $('#MessageContent').html("<div class= 'alert alert-success'>You record was successfully updated!</div>");
             //Clear the form
             $('#LessonEditForm')[0].reset();
-            //Add the (temporary) row to the table. Remember the browser
-            //is being manually updated so you will see a message to refresh the view to see the links.
-            //You could code these in, we're leaving out so you can see asynchronous activity.
-            //When the view is refreshed, the new record will reload into the table with links in the last column
+            //Add the (temporary) row to the table.
             $(function (){
                 var row = '<tr><td>' + data.LessonTitle +
                     '</td><td>' + data.Introduction +
                     '</td><td>' + data.VideoUrl +
                     '</td><td>' + data.PdfFileName +
                     '</td><td>' + data.IsActive +
-                    '</td><td></td><td>Refresh to view options </td></tr>';//Buttons are not available for this new item
+                    '</td><td></td><td>Refresh to view options </td></tr>';
                 //Replace the row to the table
                 $('#Lessons-' + data.LessonID).replaceWith(row);
             });
             $("#LessonEdit").dialog('close');//Close popup after submit
         },
-        //If there is an error, then show the alert message in the div located above the renderBody
         error: function(e){
             $('#MessageContent').html("<div class='alert alert-warning'> There was an error. Please try again or contact the site admin. </div>");
         }

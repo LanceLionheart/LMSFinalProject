@@ -3,12 +3,13 @@
     ViewBag.Title = "Create";
 }
 
-<h2>@ViewBag.Title.</h2>
+
+<h2 style="padding-top:4em; padding-left:2em">@ViewBag.Title.</h2>
 
 @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h4 style="padding-left:2em">Create a new account.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-error" })
     <div class="form-group">

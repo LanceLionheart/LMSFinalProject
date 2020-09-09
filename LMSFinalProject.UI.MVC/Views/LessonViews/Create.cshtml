@@ -16,7 +16,7 @@
     <div class="form-horizontal">
         <h4>LessonView</h4>
         <hr />
-        <!--****************************Trying to auto grab current logged-in person for Lesson Viewed ***********************************-->
+
         @if (Request.IsAuthenticated)
         {
             LMSFinalEntities1 db = new LMSFinalEntities1();
@@ -32,7 +32,6 @@
                 userFN = currentUser.FirstName;
             }
         }
-        <!--******************************************************************************-->
 
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -75,7 +74,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
+    <script> 
+      //jQuery Calendar. Not currently iterated
   $( function() {
     $( "#DateViewed" ).datepicker();
   } );

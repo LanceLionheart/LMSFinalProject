@@ -193,8 +193,9 @@ namespace LMSFinalProject.UI.MVC.Controllers
         }
 
         //****************LESSON COMPLETE DOMINO EFFECT*******************
-        public ActionResult LessonComplete(int id)  //Added ? back
-                                                    //called line 80 in LessonIndex
+
+        public ActionResult LessonComplete(int id)  //called line 80 in LessonIndex
+
         {
 
             LMSFinalEntities1 db = new LMSFinalEntities1();
@@ -203,7 +204,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
             string userID = User.Identity.GetUserId();
 
-            //var fname = db.UserDetails.Where(fn => fn.FirstName != null && userID != null);
 
             if (User.IsInRole("Employee")) //If user is logged in as "Employee", Lesson/Course clicks saved
             {//START OF BIG FUNCTION
@@ -230,13 +230,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     db.SaveChanges();
                 }
 
-
-
-
                 //**************CourseCompletion*******************
                 //Courses viewed is not saved, only completed courses
-
-
 
                 var coursecompleted = db.CourseCompletions.Where(cou => cou.UserId == userID);
 
@@ -290,9 +285,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     msg.IsBodyHtml = true;
                     msg.Priority = MailPriority.High;
 
-                    //msg.ReplyToList.Add(cvm.Email);
-                    //msg.CC.Add("metalsquidlance@gmail.com");
-
                     SmtpClient client = new SmtpClient("mail.lancevogel.com");
                     client.Credentials = new NetworkCredential("admin@lancevogel.com", "Turtle333!");
 
@@ -311,22 +303,11 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
                 }
 
-                //var fname = db.UserDetails.Where(f => f.FirstName == userID);
-                //foreach (var finished in db.CourseCompletions.Where(oo => oo.CourseCompletionId == 6))
-                //Make sure this entire function is saving under one person)
-                //Courses Done, Now Email Manager
-                //bool alldone = true;
-                //When UserIds in CourseCompletion match current logged in userId
-                //var trainingDone = db.CourseCompletions.Where(oo => oo.UserId == userID);
-                //var fname = db.UserDetails.Where(fn => fn.UserId == userID); get name for userid in email below
-
-
-
-                //This works. When the UserIds in CourseCompletion that match current logged in userId = 6, email annual.
+                //When the UserIds in CourseCompletion that match current logged in userId = 6, email annual.
                 var trainingsDone = db.CourseCompletions.Count(oo => oo.UserId == userID);
                 
                
-                if (trainingsDone == 6) //was if (trainingDone != null). Emailed everytime (might be good for single course)
+                if (trainingsDone == 6)
                 {
 
                     MailMessage msg = new MailMessage(
@@ -338,9 +319,6 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     msg.IsBodyHtml = true;
                     msg.Priority = MailPriority.High;
 
-                    //msg.ReplyToList.Add(cvm.Email);
-                    //msg.CC.Add("metalsquidlance@gmail.com");
-
                     SmtpClient client = new SmtpClient("mail.lancevogel.com");
                     client.Credentials = new NetworkCredential("admin@lancevogel.com", "Turtle333!");
 
@@ -357,12 +335,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
                         return View("Index");
                     }
 
-                    //return View("Courses");
-                    /* return View("EmailConfirmation", "Courses");*/ // Index might need to be Courses. Send the user to a email conformation view
                 }
                 return RedirectToAction("Index");
-
-                //changed from    return RedirectToAction("Courses");
 
             }//END OF BIG FUNCTION
             return View();
@@ -371,40 +345,9 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
         public ActionResult LessonDone(int? id)
         {
-
-
-            //Use if you want to have a Lesson confirmed
-
-
-
-
+            //Use if you want to have a Lesson Confirmed View
             return View();
         }
-
-        //public ActionResult YouTubeUrl()
-        //{
-        //    Lesson lv = new Lesson();
-
-        //    var CompleteYouTubeURL = lv.VideoURL;
-
-        //    var v = CompleteYouTubeURL.IndexOf("v=");
-        //    var amp = CompleteYouTubeURL.IndexOf("&", v);
-        //    string vid;
-        //    // if the video id is the last value in the url
-        //    if (amp == -1)
-        //    {
-        //        vid = CompleteYouTubeURL.Substring(v + 2);
-        //        // if there are other parameters after the video id in the url
-        //    }
-        //    else
-        //    {
-        //        vid = CompleteYouTubeURL.Substring(v + 2, amp - (v + 2));
-        //    }
-        //    ViewBag.VideoID = vid;
-
-        //    return View();
-        //}
-
-
+     
     }
 }
