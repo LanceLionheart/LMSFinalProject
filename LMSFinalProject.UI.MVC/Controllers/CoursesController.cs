@@ -203,6 +203,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
             string userID = User.Identity.GetUserId();
 
+            //var fname = db.UserDetails.Where(fn => fn.FirstName != null && userID != null);
+
             if (User.IsInRole("Employee")) //If user is logged in as "Employee", Lesson/Course clicks saved
             {//START OF BIG FUNCTION
 
@@ -282,8 +284,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     MailMessage msg = new MailMessage(
                    "admin@lancevogel.com",
                    "lzvogel@outlook.com",
-                    "Employee:" + userID + "has completed a course:",
-                    "Employee:" + userID + "has completed Course:" + coursecompleted);
+                    "A.L.L.O user " + User.Identity.Name + " has completed a course!",
+                    "A.L.L.O user " + User.Identity.Name + " has completed a course! Visit Employee Status page for details.");
 
                     msg.IsBodyHtml = true;
                     msg.Priority = MailPriority.High;
@@ -330,8 +332,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     MailMessage msg = new MailMessage(
                     "admin@lancevogel.com",
                     "lzvogel@outlook.com",
-                     "Employee:" + userID + "completed training",
-                     "Employee:" + userID + "has completed their Annual training.");
+                     "A.L.L.O user " + User.Identity.Name + " has completed training!",
+                     "A.L.L.O user " + User.Identity.Name + " has completed their Annual training! Visit Employee Status page for details.");
 
                     msg.IsBodyHtml = true;
                     msg.Priority = MailPriority.High;

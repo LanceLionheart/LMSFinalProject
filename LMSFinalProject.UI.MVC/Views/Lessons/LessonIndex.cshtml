@@ -59,16 +59,18 @@
                     @Html.DisplayFor(modelItem => item.Course.CourseName)
                 </td>
                 <td>
-                   
+
                     <!--Complete Link/Button-->
                     <!--BIG BUTTON!!  (Only seen by employees)-->
                     @if (User.IsInRole("Employee"))
-                       
-                    {
-                        <p class="probootstrap-animate"><a href="@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white">Complete</a></p>
 
-                        
+                    {
+                        <p class="probootstrap-animate"><a href="@Url.Action("LessonComplete", "Courses", new RouteValueDictionary(new { id = item.LessonId }))" class="btn btn-primary mb10" style="color:white" onclick="display()" value="Click me">Complete</a></p>
+
+
                     }
+                    
+
 
 
                     @*@Html.ActionLink("Edit", "Edit", new { id = item.LessonId }) |
@@ -80,6 +82,12 @@
 
     </table>
     <script>
+        
+       
+
+
+
+
             //-************************YOUTUBE VIDEO*****************************
         @*var player;
         var h = '@ViewBag.height';

@@ -59,10 +59,21 @@ namespace LMSFinalProject.UI.MVC.Controllers
 
             //When employee has finished 6 courses, they are added to Annual Training Complete List
 
-            //Previous
-            //var annualDone = db.CourseCompletions.Where(ad => ad.CourseCompletionId >= 6).OrderBy(ad => ad.UserDetail.LastName);
+            //variable to find total number of lessons related to specific course
+            //var totallesson = db.Lessons.Where(cl => cl.CourseId == lesson.CourseId).Count();
 
-            var annualDone = db.CourseCompletions.Where(oo => oo.UserId == userID);//pasted from email section
+            //Course Completions- CourseCompletionId, UserId (FK), CourseId, DateCompleted
+            //User Details - UserId (PK), First Name, Last Name
+
+
+            //Previous
+            var annualDone = db.CourseCompletions.Where(x => x.UserId == userID);
+            //var annualDone = db.CourseCompletions.Where(cl => cl.UserId.Count() > 5);
+
+
+            //var annualDone = db.CourseCompletions.Where(oo => oo.UserId.Count() == 6);
+            //pasted from email section
+
 
             ViewBag.OrderLesson = orderLesson;
             ViewBag.OrderCourse = orderCourse;

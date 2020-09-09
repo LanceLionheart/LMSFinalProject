@@ -31,9 +31,9 @@
     <ul style="padding-bottom:1.5em">
         @foreach (CourseCompletion cou in ViewBag.OrderCourse)
         {
-        <li>
-            @cou.UserDetail.FirstName  @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
-        </li>
+            <li>
+                @cou.UserDetail.FirstName  @cou.UserDetail.LastName &mdash; <strong>@string.Format($"{cou.Course.CourseName}")</strong> @string.Format($"{cou.DateCompleted}")
+            </li>
         }
 
         @*@Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })*@
@@ -41,19 +41,16 @@
 
     </ul>
 
-    <h3>Completed Annual Training</h3>
+    @*<h3>Completed Annual Training</h3>
     @foreach (CourseCompletion ad in ViewBag.AnnualDone)
     {
-        if (ad.CourseId == 6)
-        {
+
     <ul>
         <li>
-            @ad.UserDetail.FirstName @ad.UserDetail.LastName  &mdash; <strong>@string.Format($"{ad.DateCompleted}")</strong>
+            @ad.UserDetail.LastName  &mdash; <strong>@string.Format($"{ad.DateCompleted}")</strong>
         </li>
     </ul>
-        }
-
-    }
+    }*@
 </div>
 
 
