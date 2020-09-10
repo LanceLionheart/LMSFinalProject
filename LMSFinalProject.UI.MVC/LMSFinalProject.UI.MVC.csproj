@@ -390,6 +390,7 @@
     <Content Include="Content\resources6dbf4c41-a724-4e41-bb27-782377140a70.pdf" />
     <Content Include="Content\resources92096724-f0e1-429e-b331-f98105bb0021.pdf" />
     <Content Include="Content\resourcesdd582d87-0427-4a01-bb39-6f7c4a34550c.pdf" />
+    <Content Include="Content\resources\Documentation%28Lance Vogel%29.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

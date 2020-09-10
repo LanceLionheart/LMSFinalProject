@@ -205,8 +205,8 @@ namespace LMSFinalProject.UI.MVC.Controllers
             string userID = User.Identity.GetUserId();
 
 
-            if (User.IsInRole("Employee")) //If user is logged in as "Employee", Lesson/Course clicks saved
-            {//START OF BIG FUNCTION
+            if (User.IsInRole("Employee")) 
+            {
 
                 var viewedlessons = db.LessonViews.Where(l => l.UserId == userID);
                 bool hasviewed = false;
@@ -223,15 +223,12 @@ namespace LMSFinalProject.UI.MVC.Controllers
                     LessonView lv = new LessonView();
                     lv.DateViewed = DateTime.Now;
                     lv.UserId = userID;
-                    //lv.LessonViewId
                     lv.LessonId = lesson.LessonId;
-
                     db.LessonViews.Add(lv);
                     db.SaveChanges();
                 }
 
                 //**************CourseCompletion*******************
-                //Courses viewed is not saved, only completed courses
 
                 var coursecompleted = db.CourseCompletions.Where(cou => cou.UserId == userID);
 
